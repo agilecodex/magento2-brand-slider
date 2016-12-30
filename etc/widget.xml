@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Acx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the agilecodex.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.agilecodex.com/license-agreement
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Acx
+ * @package     Acx_BrandSlider
+ * @copyright   Copyright (c) 2016-2016 Acx (http://www.agilecodex.com/)
+ * @license     http://www.agilecodex.com/license-agreement
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="acx_brandslider" class="Acx\BrandSlider\Block\Widget\BrandSlider">
+        <label translate="true">Acx BrandSlider Widget</label>
+        <description>Choose a slideshow from: Admin » Content » Acx BrandSlider</description>
+        <parameters>            
+            <parameter name="template" xsi:type="select" visible="true" required="true" sort_order="20">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="widget/brandslider.phtml" selected="true">
+                        <label translate="true">Acx BrandSlider</label>
+                    </option>
+                </options>
+            </parameter>
+            
+            <parameter name="show_title" xsi:type="select"  visible="true" sort_order="30" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Title</label>
+            </parameter>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="40">
+                <label translate="true">Title</label>
+                <depends><parameter name="show_title" value="1" /></depends>
+            </parameter>
+            <parameter name="show_caption" xsi:type="select" visible="true" sort_order="50" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Caption</label>
+            </parameter>
+            <parameter name="autoplay" xsi:type="select" visible="true" sort_order="60" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Autoplay</label>
+            </parameter>
+            <parameter name="brandslider_speed" xsi:type="text" visible="true" required="true" 
+                       sort_order="70">
+                <label translate="true">Autoplay Timeout</label>
+                <depends><parameter name="autoplay" value="1" /></depends>
+                <value>3000</value>
+            </parameter>
+            <parameter name="dot" xsi:type="select"  visible="true" sort_order="80" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Dot Navigations</label>
+            </parameter>
+            <parameter name="brand_count" xsi:type="text" visible="true" sort_order="90" required="true">
+                <label translate="true">Number of Brand in One Column</label>
+                <value>6</value>
+            </parameter>
+            <parameter name="nav_button" xsi:type="select"  visible="true" sort_order="100" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Show Next/Prev Buttons.</label>
+            </parameter>
+            <parameter name="brand_height" xsi:type="text" visible="true" sort_order="110" required="true">
+                <label translate="true">Image Height</label>
+                <value>125</value>
+            </parameter>
+            <parameter name="brand_margin" xsi:type="text" visible="true" sort_order="120" required="true">
+                <label translate="true">Margin Between Brand</label>
+                <value>10</value>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,125 @@
+<?php
+/**
+ * Acx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the agilecodex.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.agilecodex.com/license-agreement
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Acx
+ * @package     Acx_BrandSlider
+ * @copyright   Copyright (c) 2016 Acx (http://www.agilecodex.com/)
+ * @license     http://www.agilecodex.com/license-agreement
+ */
+?>
+<?php
+/** @var \Acx\BrandSlider\Block\BrandSlider $block */
+$htmlId = $block->getFlexSliderHtmlId();
+$brandCollection = $block->getBrandCollection();
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('Acx_BrandSlider::css/flexslider.css') ?>">
+<script type="text/javascript">
+(function ()
+{
+    var flexSliderSelector = '<?php echo $htmlId; ?>';
+    require(['jquery', 'acx/brandslider'], function ($)
+    {
+        var fitImageBrandSlider = function (brandslider)
+        {
+            if (brandslider && brandslider[0])
+            {
+                $(brandslider).each(function()
+                {
+                    $(this).css({
+                        'margin-bottom'    : 60 + 'px'
+                    });
+                    $(this).find('.slides li,.slides li img').css({
+                        'height'    : <?=$block->getBrandHeight();?> + 'px',
+                        'width'     :   'auto'
+                    });
+                });
+            }
+        }
+        $(document).ready(function ($)
+        {
+            $('.' + flexSliderSelector).flexslider({
+                animation: "slide",
+                animationLoop: true,
+                pauseOnHover: true,
+                touch: true,
+                itemWidth: 100,
+                itemMargin: <?=$block->getBrandMargin();?>,
+                maxItems: <?=$block->getBrandCount();?>,
+                minItems:1,
+                <?php 
+                    if(!$block->getAutoplay())
+                    {
+                        echo "animating: 'false',";
+                    }
+                    else
+                    {
+                        echo "animating: ".$block->getBrandsliderSpeed().",";
+                    }
+                    
+                    if(!$block->getDot())
+                    {
+                        echo "controlNav: false,";
+                    }
+                    
+                    if(!$block->getNavButton()) echo "directionNav: false,";
+                ?>
+                start: function (brandslider) {
+                    fitImageBrandSlider(brandslider);
+                }
+            });
+        });
+    });
+})();
+</script>
+
+<div class="acx-brandslider-standard">
+    <?php
+    if($block->getData("show_title"))
+    {
+        ?>
+        <div class="acx-brandslider-title" style="font: bold 12px/16px Arial, Helvetica, sans-serif;text-transform: uppercase;color: #e26703;">
+        <strong><span><?php echo $block->getTitle(); ?></span></strong>
+        </div>
+        <?php
+    }
+    ?>
+    <div class="acx-brandslider-flex-brandslider" style="margin: auto; margin-bottom: 40px;">
+        <div id="<?php echo $htmlId ?>" class="flexslider flexslider-content-image <?php echo $htmlId ?>" style="margin:auto">
+            <ul class="slides">
+                <?php foreach ($brandCollection as $brand)
+                {
+                ?>
+                    <li data-thumb="<?php echo $block->getBrandImageUrl($brand) ?>">
+                        <img alt="<?php echo $brand->getImageAlt() ?>" 
+                             src="<?php echo $block->getBrandImageUrl($brand) ?>"/>
+                        <?php if($brand->getName() && $block->getShowCaption()){ ?>
+                            <div class="flex-caption">
+                                <?php echo $brand->getName(); ?>
+                            </div>
+                        <?php } ?>
+                    </li>
+                    
+                <?php
+                } 
+                ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+    .flex-viewport .slides li{
+        margin-bottom: 0px !important;
+    }
+</style>

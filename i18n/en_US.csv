@@ -1,0 +1,157 @@
+------- Please choose position -------,------- Please choose position -------
+-------- Please select a brandslider --------,-------- Please select a brandslider --------
+--------- Please choose style -------,--------- Please choose style -------
+A total of %1 record(s) have been changed status.,A total of %1 record(s) have been changed status.
+A total of %1 record(s) have been deleted.,A total of %1 record(s) have been deleted.
+Add New Brand,Add New Brand
+Add New BrandSlider,Add New BrandSlider
+Alt Text,Alt Text
+Animation Effect,Animation Effect
+Are you sure?,Are you sure?
+Brand ID,Brand ID
+Brand ID,Brand ID
+Brand Image,Brand Image
+Brand Information,Brand Information
+Brand Status,Brand Status
+Brands,Brands
+Bar,Bar
+Blue,Blue
+Bottom-Left,Bottom-Left
+Bottom-Middle,Bottom-Middle
+Bottom-Right,Bottom-Right
+Cart-Content-Top,Cart-Content-Top
+Catalog and product,Catalog and product
+Catalog-Content-Top,Catalog-Content-Top
+Catalog-Menu-Bottom,Catalog-Menu-Bottom
+Catalog-Menu-Top,Catalog-Menu-Top
+Catalog-Page-Bottom,Catalog-Page-Bottom
+Catalog-Sidebar-Bottom-Left,Catalog-Sidebar-Bottom-Left
+Catalog-Sidebar-Bottom-Right,Catalog-Sidebar-Bottom-Right
+Catalog-Sidebar-Top-Left,Catalog-Sidebar-Top-Left
+Catalog-Sidebar-Top-Right,Catalog-Sidebar-Top-Right
+Category-Content-Top,Category-Content-Top
+Category-Menu-Bottom,Category-Menu-Bottom
+Category-Menu-Top,Category-Menu-Top
+Category-Page-Bottom,Category-Page-Bottom
+Category-Sidebar-Bottom-Left,Category-Sidebar-Bottom-Left
+Category-Sidebar-Bottom-Right,Category-Sidebar-Bottom-Right
+Category-Sidebar-Top-Left,Category-Sidebar-Top-Left
+Category-Sidebar-Top-Right,Category-Sidebar-Top-Right
+Change status,Change status
+Checkout-Content-Top,Checkout-Content-Top
+Color,Color
+Content-Top,Content-Top
+Create Brand,Create Brand
+CSV,CSV
+Custom,Custom
+Custom brandslider,Custom brandslider
+Customer-Content-Top,Customer-Content-Top
+Customer-Siderbar-Main-Bottom,Customer-Siderbar-Main-Bottom
+Customer-Siderbar-Main-Top,Customer-Siderbar-Main-Top
+Default for using in CMS page template,Default for using in CMS page template
+Delete,Delete
+Delete,Delete
+Delete successfully !,Delete successfully !
+Disabled,Disabled
+Edit,Edit
+Edit Brand '%1',Edit Brand '%1'
+Enabled,Enabled
+Ending time,Ending time
+Excel,Excel
+Fade,Fade
+Fade,Fade
+FlexSlider 1,FlexSlider 1
+FlexSlider 2,FlexSlider 2
+FlexSlider 3,FlexSlider 3
+FlexSlider 4,FlexSlider 4
+General (will be disaplyed on all pages),General (will be disaplyed on all pages)
+Gray,Gray
+Green,Green
+Height,Height
+Homepage-Content-Top,Homepage-Content-Top
+ID,ID
+Image,Image
+Left-Middle,Left-Middle
+List BrandSlider,List BrandSlider
+Manage Brands,Manage Brands
+Manage BrandSliders,Manage BrandSliders
+Menu-Bottom,Menu-Bottom
+Menu-Top,Menu-Top
+Name,Name
+No,No
+Note displayed on all pages,Note displayed on all pages
+Note\'s content,Note\'s content
+Orange,Orange
+Order,Order
+Orderly,Orderly
+Page-Bottom,Page-Bottom
+Please select brand(s).,Please select brand(s).
+Please select brand(s).,Please select brand(s).
+Please select brandslider(s).,Please select brandslider(s).
+Pop up on Home page,Pop up on Home page
+Popular positions,Popular positions
+Position,Position
+Preview,Preview
+Preview BrandSlider Styles,Preview BrandSlider Styles
+Product-Content-Top,Product-Content-Top
+Product-Menu-Bottom,Product-Menu-Bottom
+Product-Menu-Top,Product-Menu-Top
+Product-Sidebar-Bottom-Left,Product-Sidebar-Bottom-Left
+Product-Sidebar-Bottom-Right,Product-Sidebar-Bottom-Right
+Product-Sidebar-Top-Left,Product-Sidebar-Top-Left
+Product-Sidebar-Top-Right,Product-Sidebar-Top-Right
+Rain,Rain
+Random,Random
+Red,Red
+Reports,Reports
+Responsive BrandSlider,Responsive BrandSlider
+Right-Middle,Right-Middle
+Save and Continue Edit,Save and Continue Edit
+Save Brand,Save Brand
+Save BrandSlider,Save BrandSlider
+Select available BrandSlider Styles,Select available BrandSlider Styles
+Select BrandSlider Mode,Select BrandSlider Mode
+Sidebar-Bottom-Left,Sidebar-Bottom-Left
+Sidebar-Bottom-Right,Sidebar-Bottom-Right
+Sidebar-Top-Left,Sidebar-Top-Left
+Sidebar-Top-Right,Sidebar-Top-Right
+Slide,Slide
+BrandSlider,BrandSlider
+BrandSlider Evolution Caborno,BrandSlider Evolution Caborno
+BrandSlider Evolution Default,BrandSlider Evolution Default
+BrandSlider Evolution Fresh,BrandSlider Evolution Fresh
+BrandSlider Evolution Minimalist,BrandSlider Evolution Minimalist
+BrandSlider ID,BrandSlider ID
+BrandSlider Information,BrandSlider Information
+BrandSlider Status,BrandSlider Status
+BrandSlider\'s Mode,BrandSlider\'s Mode
+Something went wrong while saving the brand.,Something went wrong while saving the brand.
+Something went wrong while saving the brandslider.,Something went wrong while saving the brandslider.
+Sort type,Sort type
+Special BrandSlider,Special BrandSlider
+Speed,Speed
+Square,Square
+Starting time,Starting time
+Status,Status
+Target,Target
+The brand has been saved.,The brand has been saved.
+The brandslider has been saved.,The brandslider has been saved.
+This brand no longer exists.,This brand no longer exists.
+This brandslider no longer exists.,This brandslider no longer exists.
+Title,Title
+Top-Left,Top-Left
+Top-Middle,Top-Middle
+Top-Right,Top-Right
+URL,URL
+Use Default Value,Use Default Value
+Width,Width
+XML,XML
+Yellow,Yellow
+Yes,Yes
+"You have to save brand and close this window!","You have to save brand and close this window!"
+"Add code below to a template file.","Add code below to a template file."
+"You can put a brandslider on a cms page. Below is an example which we put a brandslider with brandslider_id is your_brandslider_id on a cms page.","You can put a brandslider on a cms page. Below is an example which we put a brandslider with brandslider_id is your_brandslider_id on a cms page."
+"Please copy and paste the code below on one of xml layout files where you want to show the brand Please replace the your_brandslider_id variable with your own brandslider Id.","Please copy and paste the code below on one of xml layout files where you want to show the brand Please replace the your_brandslider_id variable with your own brandslider Id."
+New Window with Browser Navigation,New Window with Browser Navigation
+Parent Window with Browser Navigation,Parent Window with Browser Navigation
+New Window without Browser Navigation,New Window without Browser Navigation
