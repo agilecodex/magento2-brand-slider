@@ -68,5 +68,5 @@ Brand Slider Extension for Magento 2
 <section id="thank_you">
 	<div class="page-header"><h3>Thank You</h3><hr class="notop"></div>
 <p>
-	Once again, thank you so much for purchasing this extension, I'd be glad to help you if you have any questions relating to this extension. </p>
+	We'd be glad to help you if you have any questions relating to this extension. Thank you so much for looking into this extension.</p>
 </section>
