@@ -41,12 +41,12 @@ Brand Slider Extension for Magento 2
 <section id="manage_brand">
 	<div class="page-header"><h3>Manage Brand</h3><hr class="notop"></div>
 <p id="how_to_1_goto_ldquoacx_importer_gt_import_pages_import_blocks_rdquo_from_admin_panel">
-	<strong>1. Go to “Content-&gt;Acx BrandSlider -&gt; Manage Brands” from admin panel</strong></p>
+	<strong>1. Go to “Agilecodex-&gt;Manage Brands” from admin panel</strong></p>
 
 <p>
 	You will see the list of brand currently added.</p>
 <p id="how_to_1_brows_csv_file_for_pages_blocks">
-	<strong>2. Clink in Add New Brand</strong></p>
+	<strong>2. Click in Add New Brand</strong></p>
 <p id="how_to_1_click_on_import_button">
 	<strong>3. Fill Up Brand Information Form And Click Save Brand</strong></p>
 
@@ -59,7 +59,7 @@ Brand Slider Extension for Magento 2
 <p>
 	<strong>2. Click on Add New Widget</strong></p>
 <p>
-	<strong>3. Select "Acx BrandSlider Widget" As Type, Select Your Active Them And Click "Continue" </strong></p>
+	<strong>3. Select "Brand Slider Widget" As Type, Select Your Active Theme And Click "Continue" </strong></p>
 
 <p>
 	<strong>4. Enter Your Desired Information And Click Save</strong></p>

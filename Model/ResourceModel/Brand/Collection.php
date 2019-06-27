@@ -1,23 +1,9 @@
 <?php
 
 /**
- * Acx
- *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the agilecodex.com license that is
  * available through the world-wide-web at this URL:
- * http://www.agilecodex.com/license-agreement
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this extension to newer
- * version in the future.
- *
- * @category    Acx
- * @package     Acx_BrandSlider
- * @copyright   Copyright (c) 2016 Acx (http://www.agilecodex.com/)
- * @license     http://www.agilecodex.com/license-agreement
+ * https://www.agilecodex.com/license-agreement
  */
 
 namespace Acx\BrandSlider\Model\ResourceModel\Brand;
@@ -27,7 +13,7 @@ namespace Acx\BrandSlider\Model\ResourceModel\Brand;
  * @category Acx
  * @package  Acx_BrandSlider
  * @module   BrandSlider
- * @author   Wasim haider Chowdhury
+ * @author   dev@agilecodex.com
  */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
@@ -77,8 +63,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
         \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+                      
+//        $connection = null,    
+//        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
+    $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
+            //added
+    \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
+            //added
+    \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+//
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->_storeManager = $storeManager;

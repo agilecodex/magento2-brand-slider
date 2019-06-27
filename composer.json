@@ -2,18 +2,18 @@
   "name": "acx/brandslider",
   "description": "N/A",
   "require": {
-    "php": "~5.5.0|~5.6.0|~7.0.0"
+    "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.x|~7.2.x"
   },
   "type": "magento2-module",
-  "version": "1.7.0",
+  "version": "2.0.1",
   "license": [
     "OSL-3.0",
     "AFL-3.0"
   ],
   "authors": [
     {
-      "name": "Wasim haider Chowdhury",
-      "email": "wasim@agilecodex.com",
+      "name": "Agile Codex Ltd.",
+      "email": "dev@agilecodex.com",
       "homepage": "https://www.agilecodex.com/",
       "role": "Developer"
     }

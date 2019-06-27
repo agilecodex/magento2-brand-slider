@@ -31,6 +31,7 @@
 .flexslider .slides > li {
   display: none;
   -webkit-backface-visibility: hidden;
+  position: relative;
 }
 .flexslider .slides img {
   width: 100%;
@@ -257,7 +258,6 @@ html[xmlns] .flexslider .slides {
     right: 10px;
   }
 }
-
 .acx-brandslider-standard img {
 	cursor: pointer;
 }
@@ -265,21 +265,24 @@ html[xmlns] .flexslider .slides {
 	width: 300px;
 	height: 150px;
 }
-
-.acx-brandslider-standard .flexslider-carousel .slides img{
-
-}
-
 .acx-brandslider-standard {
 	width: 100%;
 }
-
 .acx-brandslider-standard .flex-viewport .flex-caption
 {
-    position: sticky;
+    position: absolute;
     bottom: 0px;
     text-align: center;
     background: rgba(50,50,50,0.8);
     color: #fff;
     border-radius: 3px;
+    width: 100%;
+}
+.acx-content-heading{
+    text-align: center;
+    margin: 10px 0 25px;
+    position: relative;
+}
+.acx-content-heading .title {
+    font-size: 3.8rem;
 }
