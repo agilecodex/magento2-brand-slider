@@ -33,7 +33,9 @@ Brand Slider Extension for Magento 2
 	<strong>Install Extension</strong></p>
 <ol>
 	<li>
-		&nbsp;Enable Acx_BrandSlider module. For how to enable magento 2 module follow this <a href="http://devdocs.magento.com/guides/v2.0/install-gde/install/cli/install-cli-subcommands-enable.html">link</a>.</li>
+		&nbsp;Enable Acx_Backend module. How to enable magento 2 module, follow this <a href="https://www.agilecodex.com/enable-and-disable-magento-2-module/">link</a>.</li>
+	<li>
+		&nbsp;Enable Acx_BrandSlider module. How to enable magento 2 module, follow this <a href="https://www.agilecodex.com/enable-and-disable-magento-2-module/">link</a>.</li>
 </ol>
 <div class="alert alert-success" style="text-align: center;">
 	That’s it! You are good to go with <strong>Acx Brand Slider</strong> Extension!</div>
