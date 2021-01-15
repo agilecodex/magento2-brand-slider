@@ -20,7 +20,8 @@ class NewAction extends \Acx\BrandSlider\Controller\Adminhtml\Brand
     public function execute()
     {
         $resultForward = $this->_resultForwardFactory->create();
-
+         $this->_getSession()->unsBrandName();
+         $this->_getSession()->unsImageAlt();
         return $resultForward->forward('edit');
     }
 }

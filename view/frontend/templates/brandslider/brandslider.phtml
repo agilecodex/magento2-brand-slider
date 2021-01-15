@@ -19,25 +19,32 @@ $brandCollection = $block->getBrandCollection();
         // store the slider in a local variable
         require(['jquery', 'acx/brandslider'], function ($)
         {
-            var $window = $(window),
-                    flexslider = {vars: {}};
+            var $window = $(window), flexslider = {vars: {}};
+            
             // tiny helper function to add breakpoints
-            function getGridSize() {
-                return (window.innerWidth < 577) ? 2 :
-                        (window.innerWidth < 992) ? 4 : 5;
+            function getGridSize(itemWidth, itemMargin) {
+                return Math.round (jQuery('.acx-brandslider').width()/(itemWidth + itemMargin));
             }
 
-            $window.load(function () {
+
+            $(document).ready(function() {
+                var itemWidth = 210, itemMargin = <?= $block->getBrandMargin(); ?>;
+                var itemCount = getGridSize(itemWidth, itemMargin);
+                itemWidth = Math.round (jQuery('.acx-brandslider').width()/itemCount);
+                
+                $(".flex-caption").css({'width' : 'calc(' + itemWidth + 'px - ' + itemMargin + 'px)'});
+                
                 $('.flexslider').flexslider({
                     animation: "slide",
                     animationLoop: true,
                     pauseOnHover: true,
                     touch: true,
-                    itemWidth: 210,
+                    itemWidth: itemWidth,
                     slideshow: false,
-                    itemMargin: <?= $block->getBrandMargin(); ?>,
-                    minItems: getGridSize(), // use function to pull in initial value
-                    maxItems: getGridSize(), // use function to pull in initial value
+                    //thumbCaptions: true,
+                    itemMargin: itemMargin, /*< ?= //$block->getBrandMargin(); ?>*/
+                    minItems: itemCount, // use function to pull in initial value
+                    maxItems: itemCount, // use function to pull in initial value
                     <?php
                     if (!$block->getAutoplay()) {
                         echo "slideshow: false, animationLoop: false,";
@@ -53,15 +60,19 @@ $brandCollection = $block->getBrandCollection();
                         echo "directionNav: false,";
 
                     ?>
+                    
                 });
+                //$(".flexslider ul li").addClass("acx-flex");
+                
             });
 
             // check grid size on resize event
             $window.resize(function () {
-                var gridSize = getGridSize();
-
-                flexslider.vars.minItems = gridSize;
-                flexslider.vars.maxItems = gridSize;
+                var itemWidth = 210, itemMargin = <?= $block->getBrandMargin(); ?>;
+                var itemCount = getGridSize(itemWidth, itemMargin);
+                
+                flexslider.vars.minItems = itemCount;
+                flexslider.vars.maxItems = itemCount;                
             });
         });
     }());

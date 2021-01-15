@@ -17,7 +17,7 @@ namespace Acx\BrandSlider\Controller\Adminhtml;
  */
 abstract class Brand extends \Acx\BrandSlider\Controller\Adminhtml\AbstractAction
 {
-    const PARAM_CRUD_ID = 'brand_id';
+    const PARAM_CRUD_ID = 'entity_id';
 
     /**
      * Check if admin has permissions to visit related pages.

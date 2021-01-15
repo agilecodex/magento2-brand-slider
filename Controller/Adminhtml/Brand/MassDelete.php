@@ -27,7 +27,7 @@ class MassDelete extends \Acx\BrandSlider\Controller\Adminhtml\Brand
             $this->messageManager->addError(__('Please select brand(s).'));
         } else {
             $brandCollection = $this->_brandCollectionFactory->create()
-                ->addFieldToFilter('brand_id', ['in' => $brandIds]);
+                ->addFieldToFilter('entity_id', ['in' => $brandIds]);
             try {
                 foreach ($brandCollection as $brand) {
                     $brand->delete();

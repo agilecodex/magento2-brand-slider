@@ -101,7 +101,7 @@ class Brand extends \Magento\Framework\Model\AbstractModel
     }
 
     /**
-     * get availabe slide.
+     * get available slides.
      *
      * @return []
      */
@@ -109,7 +109,7 @@ class Brand extends \Magento\Framework\Model\AbstractModel
     {
         $option[] = [
             'value' => '',
-            'label' => __('-------- Please select a brandslider --------'),
+            'label' => __('---- Please select a Brand Slider ------'),
         ];
 
         $brandsliderCollection = $this->_brandsliderCollectionFactory->create();

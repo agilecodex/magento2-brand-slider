@@ -15,15 +15,14 @@ namespace Acx\BrandSlider\Block\Adminhtml\Brand;
  * @module   BrandSlider
  * @author   dev@agilecodex.com
  */
-class Edit extends \Magento\Backend\Block\Widget\Form\Container
-{
+class Edit extends \Magento\Backend\Block\Widget\Form\Container {
+
     /**
      * _construct
      * @return void
      */
-    protected function _construct()
-    {
-        $this->_objectId = 'brand_id';
+    protected function _construct() {
+        $this->_objectId = 'entity_id';
         $this->_blockGroup = 'Acx_BrandSlider';
         $this->_controller = 'adminhtml_brand';
 
@@ -38,32 +37,26 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
 
             $this->buttonList->remove('back');
             $this->buttonList->add(
-                'close_window',
-                [
-                    'label' => __('Close Window'),
-                    'onclick' => 'window.close();',
-                ],
-                10
+                    'close_window', [
+                'label' => __('Close Window'),
+                'onclick' => 'window.close();',
+                    ], 10
             );
 
             $this->buttonList->add(
-                'save_and_continue',
-                [
-                    'label' => __('Save and Continue Edit'),
-                    'class' => 'save',
-                    'onclick' => 'customsaveAndContinueEdit()',
-                ],
-                10
+                    'save_and_continue', [
+                'label' => __('Save and Continue Edit'),
+                'class' => 'save',
+                'onclick' => 'customsaveAndContinueEdit()',
+                    ], 10
             );
 
             $this->buttonList->add(
-                'save_and_close',
-                [
-                    'label' => __('Save and Close'),
-                    'class' => 'save_and_close',
-                    'onclick' => 'saveAndCloseWindow()',
-                ],
-                10
+                    'save_and_close', [
+                'label' => __('Save and Close'),
+                'class' => 'save_and_close',
+                'onclick' => 'saveAndCloseWindow()',
+                    ], 10
             );
 
             $this->_formScripts[] = "
@@ -73,37 +66,35 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
 						$(edit_form).append(input);
 
 						window.customsaveAndContinueEdit = function (){
-							edit_form.action = '".$this->getSaveAndContinueUrl()."';
+							edit_form.action = '" . $this->getSaveAndContinueUrl() . "';
 							$('.custom-button-submit').trigger('click');
 
 				        }
 
 			    		window.saveAndCloseWindow = function (){
-			    			edit_form.action = '".$this->getSaveAndCloseWindowUrl()."';
+			    			edit_form.action = '" . $this->getSaveAndCloseWindowUrl() . "';
 							$('.custom-button-submit').trigger('click');
 			            }
 					});
 				});
 			";
 
-            if ($brandId = $this->getRequest()->getParam('brand_id')) {
+            if ($brandId = $this->getRequest()->getParam('entity_id')) {
                 $this->_formScripts[] = '
-					window.brand_id = '.$brandId.';
+					window.entity_id = ' . $brandId . ';
 				';
             }
         } else {
             $this->buttonList->add(
-                'save_and_continue',
-                [
-                    'label' => __('Save and Continue Edit'),
-                    'class' => 'save',
-                    'data_attribute' => [
-                        'mage-init' => [
-                            'button' => ['event' => 'saveAndContinueEdit', 'target' => '#edit_form'],
-                        ],
+                    'save_and_continue', [
+                'label' => __('Save and Continue Edit'),
+                'class' => 'save',
+                'data_attribute' => [
+                    'mage-init' => [
+                        'button' => ['event' => 'saveAndContinueEdit', 'target' => '#edit_form'],
                     ],
                 ],
-                10
+                    ], 10
             );
         }
 
@@ -117,18 +108,16 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      *
      * @return string
      */
-    protected function getSaveAndContinueUrl()
-    {
+    protected function getSaveAndContinueUrl() {
         return $this->getUrl(
-            '*/*/save',
-            [
-                '_current' => true,
-                'back' => 'edit',
-                'tab' => '{{tab_id}}',
-                'store' => $this->getRequest()->getParam('store'),
-                'brand_id' => $this->getRequest()->getParam('brand_id'),
-                'current_brandslider_id' => $this->getRequest()->getParam('current_brandslider_id'),
-            ]
+                        '*/*/save', [
+                    '_current' => true,
+                    'back' => 'edit',
+                    'tab' => '{{tab_id}}',
+                    'store' => $this->getRequest()->getParam('store'),
+                    'entity_id' => $this->getRequest()->getParam('entity_id'),
+                    'current_brandslider_id' => $this->getRequest()->getParam('current_brandslider_id'),
+                        ]
         );
     }
 
@@ -137,19 +126,18 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      *
      * @return string
      */
-    protected function getSaveAndCloseWindowUrl()
-    {
+    protected function getSaveAndCloseWindowUrl() {
         return $this->getUrl(
-            '*/*/save',
-            [
-                '_current' => true,
-                'back' => 'edit',
-                'tab' => '{{tab_id}}',
-                'store' => $this->getRequest()->getParam('store'),
-                'brand_id' => $this->getRequest()->getParam('brand_id'),
-                'current_brandslider_id' => $this->getRequest()->getParam('current_brandslider_id'),
-                'saveandclose' => 1,
-            ]
+                        '*/*/save', [
+                    '_current' => true,
+                    'back' => 'edit',
+                    'tab' => '{{tab_id}}',
+                    'store' => $this->getRequest()->getParam('store'),
+                    'entity_id' => $this->getRequest()->getParam('entity_id'),
+                    'current_brandslider_id' => $this->getRequest()->getParam('current_brandslider_id'),
+                    'saveandclose' => 1,
+                        ]
         );
     }
+
 }

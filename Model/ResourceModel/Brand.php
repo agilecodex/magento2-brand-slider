@@ -23,6 +23,6 @@ class Brand extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('acx_brandslider_brand', 'brand_id');
+        $this->_init('acx_brandslider_brand', 'entity_id');
     }
 }

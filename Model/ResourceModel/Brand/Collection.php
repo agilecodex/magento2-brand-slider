@@ -136,7 +136,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     public function setOrderRandByBrandId()
     {
-        $this->getSelect()->orderRand('main_table.brand_id');
+        $this->getSelect()->orderRand('main_table.entity_id');
 
         return $this;
     }
@@ -187,7 +187,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         }
         
         if ($field == 'store_id') {
-            $field = 'main_table.brand_id';
+            $field = 'main_table.entity_id';
         }
 
         return parent::addFieldToFilter($field, $condition);

@@ -54,6 +54,7 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory $brandCollectionFactory,
         \Acx\BrandSlider\Helper\Data $brandsliderHelper,
+        \Magento\Framework\View\Asset\Repository $assetRepo, 
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -61,6 +62,7 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
         $this->_storeManager = $context->getStoreManager();
         $this->_brandCollectionFactory = $brandCollectionFactory;
         $this->_scopeConfig = $context->getScopeConfig();
+        $this->_assetRepo = $assetRepo;
     }
     
     /**
@@ -109,7 +111,11 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
      */
     public function getBrandImageUrl(\Acx\BrandSlider\Model\Brand $brand)
     {
-        return $this->_brandsliderHelper->getBaseUrlMedia($brand->getImage());
+        $srcImage = $this->_brandsliderHelper->getBaseUrlMedia($brand->getImage());
+        if (!preg_match('~\.(png|gif|jpe?g|bmp)~i', $srcImage)) {
+            $srcImage = $this->_assetRepo->getUrl("Acx_BrandSlider::images/brand-logo-blank.png");
+        }
+        return $srcImage;
     }
 
     /**

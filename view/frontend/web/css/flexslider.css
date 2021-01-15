@@ -1,3 +1,19 @@
+
+
+/*
+ * jQuery FlexSlider v2.7.2
+ * https://www.woocommerce.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 and later license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ *
+ */
+/* ====================================================================================================================
+ * FONT-FACE
+ * ====================================================================================================================*/
 @font-face {
   font-family: 'flexslider-icon';
   src: url('../fonts/flexslider-icon.eot');
@@ -5,7 +21,9 @@
   font-weight: normal;
   font-style: normal;
 }
-
+/* ====================================================================================================================
+ * RESETS
+ * ====================================================================================================================*/
 .flex-container a:hover,
 .flex-slider a:hover {
   outline: none;
@@ -31,7 +49,6 @@
 .flexslider .slides > li {
   display: none;
   -webkit-backface-visibility: hidden;
-  position: relative;
 }
 .flexslider .slides img {
   width: 100%;
@@ -88,6 +105,11 @@ html[xmlns] .flexslider .slides {
 }
 .loading .flex-viewport {
   max-height: 300px;
+}
+@-moz-document url-prefix() {
+  .loading .flex-viewport {
+    max-height: none;
+  }
 }
 .carousel li {
   margin-right: 5px;
@@ -258,6 +280,7 @@ html[xmlns] .flexslider .slides {
     right: 10px;
   }
 }
+
 .acx-brandslider-standard img {
 	cursor: pointer;
 }

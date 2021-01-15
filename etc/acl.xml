@@ -13,6 +13,13 @@
 	        	<resource id="Acx_BrandSlider::brandslider" title="Acx BrandSlider" sortOrder="10">
 	        	    <resource id="Acx_BrandSlider::brandslider_brands" title="Manage Brands" sortOrder="10" />
 	        	</resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Acx_BrandSlider::config" title="Acx Brand Slider" sortOrder="11318" />
+                        </resource>
+                    </resource>
+                </resource>
 	        </resource>
 	    </resources>
 	</acl>
