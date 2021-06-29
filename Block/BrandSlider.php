@@ -25,42 +25,29 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
     const XML_CONFIG_BRANDSLIDER = 'brandslider/general/enable_frontend';
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $_storeManager;
-
-    /**
-     * Acx BrandSlider helper.
-     *
-     * @var \Acx\BrandSlider\Helper\Data
-     */
-    protected $_brandsliderHelper;
-
-    /**
-     * @var \Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory
-     */
-    protected $_brandCollectionFactory;
-
-    /**
      * scope config.
-     *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $_scopeConfig;
     
-    public $_widget;
+    /**
+     * @var \Acx\BrandSlider\Model\BrandRepository
+     */
+    protected $_brandRepository;
+    
+    /**
+     * var \Magento\Framework\View\Asset\Repository
+     */
+    protected  $_assetRepo;
     
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory $brandCollectionFactory,
-        \Acx\BrandSlider\Helper\Data $brandsliderHelper,
         \Magento\Framework\View\Asset\Repository $assetRepo, 
+        \Acx\BrandSlider\Model\BrandRepository $brandRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->_brandsliderHelper = $brandsliderHelper;
-        $this->_storeManager = $context->getStoreManager();
-        $this->_brandCollectionFactory = $brandCollectionFactory;
+        $this->_brandRepository = $brandRepository;
         $this->_scopeConfig = $context->getScopeConfig();
         $this->_assetRepo = $assetRepo;
     }
@@ -77,7 +64,7 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
             $store
         );
         
-        if ($configEnable && $this->getBrandCollection()->getSize()) {
+        if ($configEnable && $this->_brandRepository->getBrandCollection()->getSize()) {
             $this->setTemplate(self::TEMPLATE);
         }
         
@@ -91,15 +78,7 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
      */
     public function getBrandCollection()
     {
-        $storeViewId = $this->_storeManager->getStore()->getId();
-
-        /** @var \Acx\BrandSlider\Model\ResourceModel\Brand\Collection $brandCollection */
-        $brandCollection = $this->_brandCollectionFactory->create()
-            ->setStoreViewId($storeViewId)
-            ->addFieldToFilter('status', Status::STATUS_ENABLED)
-            ->setOrder('sort_order', 'ASC');
-        
-        return $brandCollection;
+        return $this->_brandRepository->getBrandCollection();
     }
     
     /**
@@ -111,7 +90,7 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
      */
     public function getBrandImageUrl(\Acx\BrandSlider\Model\Brand $brand)
     {
-        $srcImage = $this->_brandsliderHelper->getBaseUrlMedia($brand->getImage());
+        $srcImage = $this->getBaseUrlMedia($brand->getImage());
         if (!preg_match('~\.(png|gif|jpe?g|bmp)~i', $srcImage)) {
             $srcImage = $this->_assetRepo->getUrl("Acx_BrandSlider::images/brand-logo-blank.png");
         }
@@ -126,5 +105,39 @@ class BrandSlider extends \Magento\Framework\View\Element\Template
     public function getFlexSliderHtmlId()
     {
         return 'acx-brandslider-brandslider';
+    }
+    
+    /**
+     * get Base Url Media.
+     *
+     * @param string $path   [description]
+     * @param bool   $secure [description]
+     *
+     * @return string [description]
+     */
+    public function getBaseUrlMedia($path = '', $secure = false)
+    {
+        return $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, $secure) . $path;
+    }
+
+
+    /**
+     * get BrandSlider Brand Url
+     * @return string
+     */
+    public function getBrandSliderBrandUrl()
+    {
+        return $this->_backendUrl->getUrl('*/*/brands', ['_current' => true]);
+    }
+
+    /**
+     * get Backend Url
+     * @param  string $route
+     * @param  array  $params
+     * @return string
+     */
+    public function getBackendUrl($route = '', $params = ['_current' => true])
+    {
+        return $this->_backendUrl->getUrl($route, $params);
     }
 }

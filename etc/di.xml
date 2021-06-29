@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Acx\BrandSlider\Api\Data\BrandInterface" type="Acx\BrandSlider\Model\Brand" />
+    <preference for="Acx\BrandSlider\Api\BrandRepositoryInterface" type="Acx\BrandSlider\Model\BrandRepository" />
+    <virtualType name="BrandGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Acx\BrandSlider\Model\ResourceModel\Brand\Collection</argument>
+        </arguments>
+    </virtualType>    
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="brandslider_brand_listing_data_source" xsi:type="string">Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">acx_brandslider_brand</argument>
+            <argument name="eventPrefix" xsi:type="string">acx_brand_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">acx_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Acx\BrandSlider\Model\ResourceModel\Brand</argument>
+        </arguments>
+    </type>
+</config>

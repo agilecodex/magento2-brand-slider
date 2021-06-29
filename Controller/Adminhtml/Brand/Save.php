@@ -112,6 +112,8 @@ class Save extends \Acx\BrandSlider\Controller\Adminhtml\Brand {
                     $data['image'] = $this->uploadImage('image', $this->imageModel->getBaseDir(\Acx\BrandSlider\Model\Brand\Image::BASE_MEDIA_PATH), $data);
                 }
             }
+            
+            $data['store_id'] = isset($data['store_id'][0])?$data['store_id'][0]:$data['store_id'];
 
             $model->setData($data);
 

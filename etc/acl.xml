@@ -16,7 +16,7 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Acx_BrandSlider::config" title="Acx Brand Slider" sortOrder="11318" />
+                            <resource id="Acx_BrandSlider::config" title="Acx Brand Slider" sortOrder="113" />
                         </resource>
                     </resource>
                 </resource>

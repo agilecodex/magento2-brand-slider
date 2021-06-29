@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * This source file is subject to the agilecodex.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.agilecodex.com/license-agreement
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <update handle="formkey"/>
+    <container name="root">
+        <block class="Acx\BrandSlider\Block\Adminhtml\Brand\Grid" name="admin.block.brand.grid"/>
+    </container>
+</layout>

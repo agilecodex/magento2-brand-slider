@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="acx_brandslider_brand">
+        <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Brand ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Brand name"/>
+        <column xsi:type="int" name="sort_order" padding="10" unsigned="false" nullable="true" comment="Sort Order"/>
+        <column xsi:type="smallint" name="status" nullable="false" comment="active or inactive"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Brand image"/>
+        <column xsi:type="varchar" name="image_alt" nullable="true" length="255" comment="Brand image alt"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Brand Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Brand Modification Time"/>
+        <index referenceId="ACX_BRANDSLIDER_BRAND_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+        <index referenceId="ACX_BRANDSLIDER_BRAND_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="ACX_BRANDSLIDER_BRAND_STOREID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

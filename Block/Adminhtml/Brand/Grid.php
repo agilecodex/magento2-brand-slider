@@ -80,6 +80,18 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             ]
         );
         $this->addColumn(
+                    'store_id',
+                    [
+                        'header' => __('Store Views'),
+                        'index' => 'store_id',                        
+                        'type' => 'store',
+                        'store_all' => true,
+                        'store_view' => true,
+                        'renderer'=>  'Acx\BrandSlider\Block\Adminhtml\Brand\Edit\Tab\Renderer\Store',
+                        'filter_condition_callback' => [$this, '_filterStoreCondition']
+                    ]
+                );
+        $this->addColumn(
             'name',
             [
                 'header' => __('Brand Name'),
@@ -153,7 +165,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             'delete',
             [
                 'label' => __('Delete'),
-                'url' => $this->getUrl('acxbrandslideradmin/*/massDelete'),
+                'url' => $this->getUrl('brandslider/*/massDelete'),
                 'confirm' => __('Are you sure?'),
             ]
         );
@@ -165,7 +177,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             'status',
             [
                 'label' => __('Change status'),
-                'url' => $this->getUrl('acxbrandslideradmin/*/massStatus', ['_current' => true]),
+                'url' => $this->getUrl('brandslider/*/massStatus', ['_current' => true]),
                 'additional' => [
                     'visibility' => [
                         'name' => 'status',

@@ -63,15 +63,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
         \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-                      
-//        $connection = null,    
-//        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-    $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-            //added
-    \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
-            //added
-    \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
-//
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
+        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->_storeManager = $storeManager;
@@ -187,7 +180,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         }
         
         if ($field == 'store_id') {
-            $field = 'main_table.entity_id';
+            $field = 'main_table.store_id';
         }
 
         return parent::addFieldToFilter($field, $condition);

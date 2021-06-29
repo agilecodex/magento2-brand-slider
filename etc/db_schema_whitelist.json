@@ -1,0 +1,20 @@
+{
+    "acx_brandslider_brand": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "sort_order": true,
+            "status": true,
+            "image": true,
+            "image_alt": true,
+            "store_id": true
+        },
+        "index": {
+            "ACX_BRANDSLIDER_BRAND_ENTITY_ID": true,
+            "ACX_BRANDSLIDER_BRAND_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -8,21 +8,14 @@
 
 namespace Acx\BrandSlider\Model;
 
+use \Acx\BrandSlider\Api\Data\BrandInterface;
+use \Magento\Framework\Model\AbstractModel;
 /**
  * Brand Model
- * @category Acx
- * @package  Acx_BrandSlider
- * @module   BrandSlider
  * @author   dev@agilecodex.com
  */
-class Brand extends \Magento\Framework\Model\AbstractModel
+class Brand extends AbstractModel implements BrandInterface
 {
-    const BASE_MEDIA_PATH = 'acx/brandslider/images';
-
-    const BRAND_TARGET_SELF = 0;
-    const BRAND_TARGET_PARENT = 1;
-    const BRAND_TARGET_BLANK = 2;
-
     /**
      * store view id.
      *

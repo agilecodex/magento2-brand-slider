@@ -32,7 +32,8 @@ class Brand extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
      * @var \Magento\Cms\Model\Wysiwyg\Config
      */
     protected $_wysiwygConfig;
-
+    
+    protected $_systemStore;
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Registry $registry
@@ -49,11 +50,13 @@ class Brand extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         \Magento\Framework\DataObjectFactory $objectFactory,
         \Acx\BrandSlider\Model\Brand $brand,
         \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
-        array $data = []
+        array $data = [],
+        \Magento\Store\Model\System\Store $systemStore
     ) {
         $this->_objectFactory = $objectFactory;
         $this->_brand = $brand;
         $this->_wysiwygConfig = $wysiwygConfig;
+        $this->_systemStore = $systemStore;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -127,8 +130,31 @@ class Brand extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         if(preg_match('~\.(png|gif|jpe?g|bmp)~i', $this->_brand->getImage()))
               $image_path =  $this->_brand->getImage();
         
-        
-        
+        if (!$this->_storeManager->isSingleStoreMode()) {
+            $elements['store_id'] = $fieldset->addField(
+                    'store_id', 'multiselect', [
+                'name' => 'store_id[]',
+                'label' => __('Store View'),
+                'title' => __('Store View'),
+                'required' => true,
+                'values' => $this->_systemStore->getStoreValuesForForm(false, true),
+                'disabled' => false,
+                'value' => (null !== $model->getStoreId() ? $model->getStoreId() : 0)
+                    ]
+            );
+            $renderer = $this->getLayout()->createBlock(
+                    'Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset\Element'
+            );
+            $elements['store_id']->setRenderer($renderer);
+        } else {
+            $elements['store_id'] = $fieldset->addField(
+                    'store_id', 'hidden', ['name' => 'store_id[]', 'value' => $this->_storeManager->getStore(true)->getId()]
+            );
+            $model->setStoreId($this->_storeManager->getStore(true)->getId());
+        }
+
+
+
         $elements['image'] = $fieldset->addField(
             'image',
             'image',
