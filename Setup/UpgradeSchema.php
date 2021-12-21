@@ -5,7 +5,7 @@
  *
  */
 
-namespace Acx\Webpos\Setup;
+namespace Acx\BrandSlider\Setup;
 
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
