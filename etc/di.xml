@@ -1,25 +1,66 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Acx\BrandSlider\Api\Data\BrandInterface" type="Acx\BrandSlider\Model\Brand" />
-    <preference for="Acx\BrandSlider\Api\BrandRepositoryInterface" type="Acx\BrandSlider\Model\BrandRepository" />
-    <virtualType name="BrandGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
-        <arguments>
-            <argument name="collection" xsi:type="object" shared="false">Acx\BrandSlider\Model\ResourceModel\Brand\Collection</argument>
-        </arguments>
-    </virtualType>    
+    <preference for="Acx\BrandSlider\Api\Data\BrandInterface"
+                type="Acx\BrandSlider\Model\Brand" />
+    <preference for="Acx\BrandSlider\Api\BrandRepositoryInterface"
+                type="Acx\BrandSlider\Model\BrandRepository" />
+    <preference for="Acx\BrandSlider\Api\Data\BrandSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="brandslider_brand_listing_data_source" xsi:type="string">Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection</item>
+                <item name="brandslider_brand_listing_data_source" xsi:type="string">
+                    Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection
+                </item>
             </argument>
         </arguments>
     </type>
     <type name="Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">acx_brandslider_brand</argument>
-            <argument name="eventPrefix" xsi:type="string">acx_brand_grid_collection</argument>
-            <argument name="eventObject" xsi:type="string">acx_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">brandslider_brand_collection</argument>
+            <argument name="eventObject" xsi:type="string">brand_collection</argument>
             <argument name="resourceModel" xsi:type="string">Acx\BrandSlider\Model\ResourceModel\Brand</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Acx\BrandSlider\Api\Data\BrandInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">acx_brandslider_brand</item>
+                    <item name="identifierField" xsi:type="string">brand_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Acx\BrandSlider\BrandLogoUpload" type="Acx\BrandSlider\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">acx/tmp/brand</argument>
+            <argument name="basePath" xsi:type="string">acx/brand</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Acx\BrandSlider\Controller\Adminhtml\Brand\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\BrandLogoUpload</argument>
+        </arguments>
+    </type>
+    <type name="Acx\BrandSlider\Model\Brand\Image">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\BrandLogoUpload</argument>
         </arguments>
     </type>
 </config>

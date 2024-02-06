@@ -13,7 +13,7 @@ Select “Disable” in the “Actions” drop down and Click Submit;
 Once the page reloads log out from Admin;
 
 ###Upload Acx BrandSlider###
-Using your favorite FTP client(http://lifehacker.com/5039956/five-best-ftp-clients), upload all files and folders to the root folder of your Magento installation
+Upload all files and folders to the root folder of your Magento installation
 
 ###Install Extension###
 Enable Acx_Backend module

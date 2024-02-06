@@ -1,16 +1,15 @@
 <?xml version="1.0"?>
 <!--
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
 -->
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
     <widget id="acx_brandslider" class="Acx\BrandSlider\Block\Widget\BrandSlider">
         <label translate="true">Brand Slider Widget</label>
         <description>Choose a slideshow from: Admin » Content » Brand Slider</description>
-        <parameters>            
+        <parameters>
             <parameter name="template" xsi:type="select" visible="true" required="true" sort_order="20">
                 <label translate="true">Template</label>
                 <options>
@@ -19,7 +18,6 @@
                     </option>
                 </options>
             </parameter>
-            
             <parameter name="show_title" xsi:type="select"  visible="true" sort_order="30" required="true"
                        source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show Title</label>
@@ -32,19 +30,36 @@
                        source_model="Magento\Config\Model\Config\Source\Enabledisable">
                 <label translate="true">Caption</label>
             </parameter>
-            <parameter name="autoplay" xsi:type="select" visible="true" sort_order="60" required="true"
+            <parameter name="dot" xsi:type="select"  visible="true" sort_order="51" required="true"
                        source_model="Magento\Config\Model\Config\Source\Enabledisable">
-                <label translate="true">Autoplay</label>
+                <label translate="true">Dot Navigations</label>
             </parameter>
-            <parameter name="brandslider_speed" xsi:type="text" visible="true" required="true" 
+            <parameter name="infinite" xsi:type="select" visible="true" sort_order="60" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Infinite loop sliding</label>
+            </parameter>
+            <parameter name="brandslider_speed" xsi:type="text" visible="true" required="true"
                        sort_order="70">
-                <label translate="true">Autoplay Timeout (ms)</label>
+                <label translate="true">Slide/Fade animation speed</label>
+                <value>300</value>
+            </parameter>
+            <parameter name="autoplay" xsi:type="select" visible="true" sort_order="80" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
+                <label translate="true">Enables Autoplay</label>
+            </parameter>
+            <parameter name="autoplaySpeed" xsi:type="text" visible="true" required="true"
+                       sort_order="81">
+                <label translate="true">Autoplay Speed in milliseconds</label>
                 <depends><parameter name="autoplay" value="1" /></depends>
                 <value>3000</value>
             </parameter>
-            <parameter name="dot" xsi:type="select"  visible="true" sort_order="80" required="true"
-                       source_model="Magento\Config\Model\Config\Source\Enabledisable">
-                <label translate="true">Dot Navigations</label>
+            <parameter name="slides_to_show" xsi:type="text" visible="true" sort_order="120" required="true">
+                <label translate="true">SlidesToShow: # of slides to show</label>
+                <value>5</value>
+            </parameter>
+            <parameter name="slides_to_scroll" xsi:type="text" visible="true" sort_order="120" required="true">
+                <label translate="true">SlidesToScroll: # of slides to scroll</label>
+                <value>2</value>
             </parameter>
             <parameter name="nav_button" xsi:type="select"  visible="true" sort_order="100" required="true"
                        source_model="Magento\Config\Model\Config\Source\Enabledisable">

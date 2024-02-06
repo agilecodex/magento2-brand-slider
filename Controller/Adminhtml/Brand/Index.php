@@ -1,36 +1,43 @@
 <?php
 
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
-
 namespace Acx\BrandSlider\Controller\Adminhtml\Brand;
 
+use Magento\Backend\App\Action as AppAction;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\View\Result\PageFactory;
+
 /**
- * Brand Index action.
- * @category Acx
- * @package  Acx_BrandSlider
- * @module   BrandSlider
- * @author   dev@agilecodex.com
+ * Action class for logo listing.
+ * @author Agile Codex
  */
-class Index extends \Acx\BrandSlider\Controller\Adminhtml\Brand
+class Index extends AppAction implements HttpGetActionInterface
 {
+    /** @var PageFactory */
+    private $pageFactory;
+
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @param Context $context
+     * @param PageFactory $pageFactory
+     */
+    public function __construct(Context $context, PageFactory $pageFactory)
+    {
+        $this->pageFactory = $pageFactory;
+        parent::__construct($context);
+    }
+
+    /**
+     * @inheritDoc
      */
     public function execute()
     {
-        if ($this->getRequest()->getQuery('ajax')) {
-            $resultForward = $this->_resultForwardFactory->create();
-            $resultForward->forward('grid');
+        $page = $this->pageFactory->create();
+        $page->getConfig()->getTitle()->prepend(__('Brand List'));
 
-            return $resultForward;
-        }
-
-        $resultPage = $this->_resultPageFactory->create();
-
-        return $resultPage;
+        return $page;
     }
 }

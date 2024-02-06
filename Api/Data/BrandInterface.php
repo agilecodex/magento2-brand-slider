@@ -1,88 +1,159 @@
 <?php
 
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
 
 namespace Acx\BrandSlider\Api\Data;
 
 /**
  * Brand Service Contract
- * @author   dev@agilecodex.com
+ * @api
+ * @author Agile Codex
  */
 interface BrandInterface
 {
-    const BASE_MEDIA_PATH = 'acx/brandslider/images';
+    /**
+     * Constants for keys of data array. Identical to the name of the getter in snake case
+     */
+    public const BRAND_ID = 'brand_id';
+    public const NAME = 'name';
+    public const SORT_ORDER = 'sort_order';
+    public const STATUS = 'status';
+    public const IMAGE = 'image';
+    public const IMAGE_ALT = 'image_alt';
+    public const UPDATE_TIME = 'update_time';
+    public const STORE_ID = 'store_id';
 
-    const BRAND_TARGET_SELF = 0;
-    const BRAND_TARGET_PARENT = 1;
-    const BRAND_TARGET_BLANK = 2;
-
-
+    public const BASE_MEDIA_PATH = 'acx/brandslider/images';
+    public const BRAND_TARGET_SELF = 0;
+    public const BRAND_TARGET_PARENT = 1;
+    public const BRAND_TARGET_BLANK = 2;
 
     /**
-     * get form field html id prefix.
+     * Set Brand logo ID
      *
-     * @return string
+     * @param int $id
+     * @return BrandInterface
      */
-    public function getFormFieldHtmlIdPrefix();
+    public function setBrandId($id);
 
     /**
-     * get available slides.
+     * Get Brand Logo ID
      *
-     * @return []
+     * @return mixed
      */
-    public function getAvailableSlides();
+    public function getBrandId();
 
     /**
-     * get store attributes.
+     * Get Brand Logo Name
      *
-     * @return array
+     * @return string|null
      */
-    public function getStoreAttributes();
+    public function getName(): ?string;
 
     /**
-     * get store view id.
-     *
-     * @return int
+     * @param $brandName
+     * @return BrandInterface
      */
-    public function getStoreViewId();
+    public function setName($brandName): BrandInterface;
 
     /**
-     * set store view id.
+     * Get brand logo sort order
      *
-     * @param int $storeViewId
+     * @return int|null
      */
-    public function setStoreViewId($storeViewId);
+    public function getSortOrder(): ?int;
 
     /**
-     * before save.
+     * Set brand logo sort order
+     *
+     * @param $sortOrder
+     * @return BrandInterface|null
      */
-    public function beforeSave();
+    public function setSortOrder($sortOrder): ?BrandInterface;
 
     /**
-     * after save.
+     * Get active status
+     *
+     * @return int|null
      */
-    public function afterSave();
+    public function getStatus(): ?int;
 
     /**
-     * load info multistore.
+     * Set active status
      *
-     * @param mixed  $id
-     * @param string $field
-     *
-     * @return $this
+     * @param int|bool $status
+     * @return BrandInterface
      */
-    public function load($id, $field = null);
+    public function setStatus($status): BrandInterface;
 
     /**
-     * get store view value.
+     * Get logo image
      *
-     * @param string|null $storeViewId
-     *
-     * @return $this
+     * @return string|null
      */
-    public function getStoreViewValue($storeViewId = null);
+    public function getImage(): ?string;
+
+    /**
+     * Set logo image
+     *
+     * @param string $image
+     * @return BrandInterface
+     */
+    public function setImage($image): ?BrandInterface;
+
+    /**
+     * Get Alt text of logo image
+     *
+     * @return string|null
+     */
+    public function getImageAlt(): ?string;
+
+    /**
+     * Set Alt text of logo image
+     *
+     * @param string|null $imageAlt
+     * @return BrandInterface
+     */
+    public function setImageAlt($imageAlt): BrandInterface;
+
+    /**
+     * Get store id of brand logo
+     *
+     * @return array|null
+     */
+    public function getStoreId(): ?array;
+
+    /**
+     * Set store id for brand logo
+     *
+     * @param array $storeIds
+     * @return BrandInterface
+     */
+    public function setStoreIds(array $storeIds): BrandInterface;
+
+    /**
+     * Unset store id for brand logo
+     *
+     * @return BrandInterface
+     */
+    public function unsetStoreIds(): BrandInterface;
+
+    /**
+     * Set brand logo update time
+     *
+     * @param string|null $value
+     * @return BrandInterface
+     */
+    public function setUpdatedAt($value): BrandInterface;
+
+    /**
+     * Get brand logo update time
+     *
+     * @return string|null
+     */
+    public function getUpdatedAt(): ?string;
+
 }

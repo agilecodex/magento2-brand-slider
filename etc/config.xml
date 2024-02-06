@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!--
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
@@ -16,9 +15,13 @@
         <system>
             <media_storage_configuration>
                 <allowed_resources>
-                    <brandslider_folder>acx</brandslider_folder>
+                    <tmp_images_folder>tmp</tmp_images_folder>
+                    <brandslider_folder>acx/brand</brandslider_folder>
                 </allowed_resources>
             </media_storage_configuration>
+            <upload_configuration>
+                <jpeg_quality>80</jpeg_quality>
+            </upload_configuration>
         </system>
     </default>
 </config>

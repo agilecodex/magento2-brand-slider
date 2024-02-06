@@ -1,126 +1,134 @@
 <?php
-
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
-
 namespace Acx\BrandSlider\Controller\Adminhtml\Brand;
 
-use \Magento\Backend\App\Action\Context;
-use Magento\Framework\Exception\LocalizedException as FrameworkException;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use \Magento\Framework\Controller\ResultFactory;
-
+use Acx\BrandSlider\Controller\Adminhtml\Brand as AbastractBrand;
+use Acx\BrandSlider\Model\Brand;
+use Acx\BrandSlider\Model\Brand\Image;
+use Acx\BrandSlider\Model\BrandFactory;
+use Acx\BrandSlider\Model\BrandRepository;
+use Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory;
+use Magento\Backend\App\Action\Context as BackendContext;
+use Magento\Backend\Helper\Js;
+use Magento\Backend\Model\View\Result\ForwardFactory;
+use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Event\ManagerInterface as EventManager;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Registry;
+use Magento\Framework\View\Result\LayoutFactory;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\MediaStorage\Model\File\UploaderFactory;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * Save Brand action.
- * @category Acx
- * @package  Acx_BrandSlider
- * @module   BrandSlider
- * @author   dev@agilecodex.com
+ * Action class for saving brand.
+ *
+ * @author Agile Codex
  */
-class Save extends \Acx\BrandSlider\Controller\Adminhtml\Brand {
-
+class Save extends AbastractBrand
+{
+    /** @var UploaderFactory  */
     protected $uploaderFactory;
+
+    /** @var Image  */
     protected $imageModel;
 
+    /** @var BrandRepository */
+    protected $brandRepository;
+
+    /** @var DataPersistorInterface */
+    protected $dataPersistor;
+
+    /** @var EventManager */
+    private $eventManager;
+
+    /**
+     * @param BackendContext $context
+     * @param UploaderFactory $uploaderFactory
+     * @param Image $imageModel
+     * @param BrandFactory $brandFactory
+     * @param CollectionFactory $brandCollectionFactory
+     * @param Registry $coreRegistry
+     * @param FileFactory $fileFactory
+     * @param PageFactory $resultPageFactory
+     * @param LayoutFactory $resultLayoutFactory
+     * @param ForwardFactory $resultForwardFactory
+     * @param StoreManagerInterface $storeManager
+     * @param Js $jsHelper
+     * @param DataPersistorInterface $dataPersistor
+     * @param EventManager $eventManager
+     * @param BrandRepository $brandRepository
+     */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context, 
-        \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory, 
-        \Acx\BrandSlider\Model\Brand\Image $imageModel, 
-        \Acx\BrandSlider\Model\BrandFactory $brandFactory, 
-        \Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory $brandCollectionFactory, 
-        \Magento\Framework\Registry $coreRegistry, 
-        \Magento\Framework\App\Response\Http\FileFactory $fileFactory, 
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory, 
-        \Magento\Framework\View\Result\LayoutFactory $resultLayoutFactory, 
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory, 
-        \Magento\Store\Model\StoreManagerInterface $storeManager, 
-        \Magento\Backend\Helper\Js $jsHelper
+        BackendContext $context,
+        UploaderFactory $uploaderFactory,
+        Image $imageModel,
+        BrandFactory $brandFactory,
+        CollectionFactory $brandCollectionFactory,
+        Registry $coreRegistry,
+        FileFactory $fileFactory,
+        PageFactory $resultPageFactory,
+        LayoutFactory $resultLayoutFactory,
+        ForwardFactory $resultForwardFactory,
+        StoreManagerInterface $storeManager,
+        Js $jsHelper,
+        DataPersistorInterface $dataPersistor,
+        EventManager $eventManager,
+        BrandRepository $brandRepository
     ) {
-        parent::__construct($context, $brandFactory, $brandCollectionFactory, 
-                $coreRegistry, $fileFactory, $resultPageFactory, $resultLayoutFactory, 
+        parent::__construct($context, $brandFactory, $brandCollectionFactory,
+                $coreRegistry, $fileFactory, $resultPageFactory, $resultLayoutFactory,
                 $resultForwardFactory, $storeManager, $jsHelper);
 
         $this->uploaderFactory = $uploaderFactory;
         $this->imageModel = $imageModel;
+        $this->brandRepository = $brandRepository;
+        $this->dataPersistor = $dataPersistor;
+        $this->eventManager = $eventManager;
     }
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @inheritDoc
      */
     public function execute() {
         $resultRedirect = $this->resultRedirectFactory->create();
 
         if ($data = $this->getRequest()->getPostValue()) {
+            if (isset($data['status']) && $data['status'] === 'true') {
+                $data['status'] = Brand::STATUS_ENABLED;
+            }
+            if (empty($data['brand_id'])) {
+                $data['brand_id'] = null;
+            }
             $model = $this->_brandFactory->create();
 
             if ($id = $this->getRequest()->getParam(static::PARAM_CRUD_ID)) {
-                $model->load($id);
+                try {
+                    $model = $this->brandRepository->getById($id);
+                } catch (LocalizedException $e) {
+                    $this->messageManager->addErrorMessage(__('This brand no longer exists.'));
+                    return $resultRedirect->setPath('*/*/');
+                }
             }
 
-            $imageRequest = $this->getRequest()->getFiles('image');
-            $fileName = isset($imageRequest['name']) && strlen($imageRequest['name']) > 0 
-                            ? $imageRequest['name'] : '';
-            
-            $isUpload = false;
-            //uploading with file name
-            if ( $fileName <> '' ) {
-                $isUpload = TRUE;
-                if (strlen($fileName) > 90) {
-                    $this->messageManager->addErrorMessage( 
-                            __($fileName . ' was not uploaded. Filename is too long; must be 90 characters or less.'));
-                    $fileName = '';
-                }
-            }
-            //uploading without file name
-            else {
-                //brand has exiting image
-                if (isset($data['image']) && isset($data['image']['value'])) {
-                    if (isset($data['image']['delete'])) {
-                        $data['image'] = null;
-                        $data['delete_image'] = true;
-                    } elseif (isset($data['image']['value'])) {
-                        $data['image'] = $data['image']['value'];
-                    } else {
-                        $data['image'] = null;
-                    }
-                } else {
-                    $this->messageManager->addErrorMessage(__('An image for Brand is required!'));
-                    $fileName = '';
-                    $isUpload = TRUE;
-                }
-            }
-            
-            $this->_getSession()->unsBrandName();
-            $this->_getSession()->unsImageAlt();
-            
-            if ($isUpload) {
-                if ($fileName == '') {
-                    foreach($data as $key=>$val ){
-                        if($key == 'name')
-                            $key = 'brand_name';
-                        $this->_getSession()->setData($key, $val);
-                    }
-                    
-                    $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                    $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                    return $resultRedirect;
-                } else {
-                    $data['image'] = $this->uploadImage('image', $this->imageModel->getBaseDir(\Acx\BrandSlider\Model\Brand\Image::BASE_MEDIA_PATH), $data);
-                }
-            }
-            
-            $data['store_id'] = isset($data['store_id'][0])?$data['store_id'][0]:$data['store_id'];
-
+            $this->dataPersistor->set('brandslider_brand', $data);
+            $data = $this->imageModel->beforeSave($data);
+            $oldData = $model->getData();
             $model->setData($data);
 
             try {
-                $model->save();
+                $brand = $this->brandRepository->save($model);
 
                 $this->messageManager->addSuccess(__('The brand has been saved.'));
+                $this->eventManager->dispatch('acx_brand_slider_brand_save_after',
+                    ['entity' => $brand, 'oldData' => $oldData]);
+
                 $this->_getSession()->setFormData(false);
 
                 return $this->_getBackResultRedirect($resultRedirect, $model->getId());
@@ -132,44 +140,12 @@ class Save extends \Acx\BrandSlider\Controller\Adminhtml\Brand {
             $this->_getSession()->setFormData($data);
 
             return $resultRedirect->setPath(
-                            '*/*/edit', [static::PARAM_CRUD_ID => $this->getRequest()->getParam(static::PARAM_CRUD_ID)]
+                '*/*/edit',
+                [static::PARAM_CRUD_ID => $this->getRequest()->getParam(static::PARAM_CRUD_ID)]
             );
         }
 
         return $resultRedirect->setPath('*/*/');
-    }
-
-    /**
-     * Upload file and return file name 
-     */
-    public function uploadImage($input, $destinationFolder, $data) {
-        try {
-            
-            if (isset($data[$input]['delete'])) {
-                return '';
-            } else {
-                $uploader = $this->uploaderFactory->create(['fileId' => $input]);
-                $uploader->setAllowRenameFiles(true);
-                $uploader->setFilesDispersion(true);
-                $uploader->setAllowCreateFolders(true);
-                $result = $uploader->save($destinationFolder);
-                return \Acx\BrandSlider\Model\Brand\Image::BASE_MEDIA_PATH . $result['file'];
-            }
-        } catch (\Exception $e) {
-            if ($e->getCode() != \Magento\Framework\File\Uploader::TMP_NAME_EMPTY) {
-                throw new FrameworkException($e->getMessage());
-                $this->messageManager->addErrorMessage(__($e->getMessage()));
-                $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                return $resultRedirect;
-               
-            } else {
-                if (isset($data[$input]['value'])) {
-                    return $data[$input]['value'];
-                }
-            }
-        }
-        return '';
     }
 
 }

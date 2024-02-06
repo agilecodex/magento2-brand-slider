@@ -1,9 +1,8 @@
 <?php
 
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
 
 namespace Acx\BrandSlider\Controller\Adminhtml\Brand;
@@ -15,29 +14,18 @@ use Magento\Ui\Component\MassAction\Filter;
 use Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory;
 
 /**
- * MassDelete action.
- * @category Acx
- * @package  Acx_BrandSlider
- * @module   BrandSlider
- * @author   dev@agilecodex.com
+ * Action class for mass delete.
+ *
+ * @author Agile Codex
  */
 class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Acx_BrandSlider::brandslider_brands';
+    public const ADMIN_RESOURCE = 'Acx_BrandSlider::brandslider_brands';
 
-    /**
-     * @var Filter
-     */
+    /** @var Filter */
     protected $filter;
 
-    /**
-     * @var CollectionFactory
-     */
+    /** @var CollectionFactory */
     protected $_brandCollectionFactory;
 
     /**
@@ -51,8 +39,9 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
         $this->_brandCollectionFactory = $collectionFactory;
         parent::__construct($context);
     }
+
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @inheritDoc
      */
     public function execute()
     {
@@ -72,6 +61,6 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');
-
     }
+
 }

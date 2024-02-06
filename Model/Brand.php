@@ -1,204 +1,207 @@
 <?php
-
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
- */
-
+ * Copyright © Agile Codex Ltd. All rights reserved.
+ * License: https://www.agilecodex.com/license-agreement
+*/
 namespace Acx\BrandSlider\Model;
 
-use \Acx\BrandSlider\Api\Data\BrandInterface;
-use \Magento\Framework\Model\AbstractModel;
+use Acx\BrandSlider\Api\Data\BrandInterface;
+use Magento\Framework\Model\AbstractModel;
+
 /**
  * Brand Model
- * @author   dev@agilecodex.com
+ * @author Agile Codex
  */
 class Brand extends AbstractModel implements BrandInterface
 {
-    /**
-     * store view id.
-     *
-     * @var int
-     */
-    protected $_storeViewId = null;
+    /** Brand slider cache tag */
+    public const CACHE_TAG = 'acx_bs_b';
+
+    /** @var string */
+    protected $_eventPrefix = 'brand_slider';
+
+    /** Brand's statuses */
+    public const STATUS_ENABLED = 1;
+    public const STATUS_DISABLED = 0;
 
     /**
-     * brand factory.
-     *
-     * @var \Acx\BrandSlider\Model\BrandFactory
+     * @return void
      */
-    protected $_brandFactory;
-
-    /**
-     * [$_formFieldHtmlIdPrefix description].
-     *
-     * @var string
-     */
-    protected $_formFieldHtmlIdPrefix = 'page_';
-
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $_storeManager;
-
-    /**
-     * logger.
-     *
-     * @var \Magento\Framework\Logger\Monolog
-     */
-    protected $_monolog;
-    
-    /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Acx\BrandSlider\Model\ResourceModel\Brand $resource
-     * @param \Acx\BrandSlider\Model\ResourceModel\Brand\Collection $resourceCollection
-     * @param \Acx\BrandSlider\Model\BrandFactory $brandFactory
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\Logger\Monolog $monolog
-     */
-    public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Acx\BrandSlider\Model\ResourceModel\Brand $resource,
-        \Acx\BrandSlider\Model\ResourceModel\Brand\Collection $resourceCollection,
-        \Acx\BrandSlider\Model\BrandFactory $brandFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\Logger\Monolog $monolog
-    ) {
-        parent::__construct(
-            $context,
-            $registry,
-            $resource,
-            $resourceCollection
-        );
-        $this->_brandFactory = $brandFactory;
-        $this->_storeManager = $storeManager;
-
-        $this->_monolog = $monolog;
-
-        if ($storeViewId = $this->_storeManager->getStore()->getId()) {
-            $this->_storeViewId = $storeViewId;
-        }
-    }
-
-    /**
-     * get form field html id prefix.
-     *
-     * @return string
-     */
-    public function getFormFieldHtmlIdPrefix()
+    protected function _construct()
     {
-        return $this->_formFieldHtmlIdPrefix;
+        $this->_init(ResourceModel\Brand::class);
     }
 
     /**
-     * get available slides.
-     *
-     * @return []
-     */
-    public function getAvailableSlides()
-    {
-        $option[] = [
-            'value' => '',
-            'label' => __('---- Please select a Brand Slider ------'),
-        ];
-
-        $brandsliderCollection = $this->_brandsliderCollectionFactory->create();
-        foreach ($brandsliderCollection as $brandslider) {
-            $option[] = [
-                'value' => $brandslider->getId(),
-                'label' => $brandslider->getTitle(),
-            ];
-        }
-
-        return $option;
-    }
-
-    /**
-     * get store attributes.
+     * Get identities
      *
      * @return array
      */
-    public function getStoreAttributes()
+    public function getIdentities()
     {
-        return array(
-            'name',
-            'status',
-            'image_alt',
-            'image',
-        );
+        return [self::CACHE_TAG . '_' . $this->getId(), self::CACHE_TAG . '_'
+            . str_replace(' ', '_', $this->getName())];
     }
 
     /**
-     * get store view id.
+     * Set Brand ID.
      *
-     * @return int
+     * @param int $id
+     * @return BrandInterface
      */
-    public function getStoreViewId()
-    {
-        return $this->_storeViewId;
+    public function setBrandId($id) {
+        return $this->setData(self::BRAND_ID, $id);
     }
 
     /**
-     * set store view id.
+     * Get Brand ID.
      *
-     * @param int $storeViewId
+     * @return mixed
      */
-    public function setStoreViewId($storeViewId)
-    {
-        $this->_storeViewId = $storeViewId;
-
-        return $this;
+    public function getBrandId(){
+        return $this->getData(self::BRAND_ID);
     }
 
     /**
-     * before save.
+     * Get Brand Name.
+     *
+     * @return string|null
      */
-    public function beforeSave()
-    {
-        
-        return parent::beforeSave();
+    public function getName(): ?string {
+        return $this->getData(self::NAME);
     }
 
     /**
-     * after save.
+     * Set Brand Name.
+     *
+     * @param $brandName
+     * @return BrandInterface
      */
-    public function afterSave()
-    {
-        return parent::afterSave();
+    public function setName($brandName): BrandInterface {
+        return $this->setData(self::NAME, $brandName);
     }
 
     /**
-     * load info multistore.
+     * Get sort order.
      *
-     * @param mixed  $id
-     * @param string $field
-     *
-     * @return $this
+     * @return int|null
      */
-    public function load($id, $field = null)
-    {
-        parent::load($id, $field);
-        if ($this->getStoreViewId()) {
-            $this->getStoreViewValue();
-        }
-
-        return $this;
+    public function getSortOrder(): ?int {
+        return $this->getData(self::SORT_ORDER);
     }
 
     /**
-     * get store view value.
+     * Set sort order.
      *
-     * @param string|null $storeViewId
-     *
-     * @return $this
+     * @param $sortOrder
+     * @return BrandInterface
      */
-    public function getStoreViewValue($storeViewId = null)
-    {
-        
-        return $this;
+    public function setSortOrder($sortOrder): BrandInterface{
+        return $this->setData(self::SORT_ORDER, $sortOrder);
+    }
+
+    /**
+     * Get active status.
+     *
+     * @return int|null
+     */
+    public function getStatus(): ?int {
+        return $this->getData(self::STATUS);
+    }
+
+    /**
+     * Set active status.
+     *
+     * @param $status
+     * @return BrandInterface
+     */
+    public function setStatus($status): BrandInterface{
+        return $this->setData(self::STATUS, $status);
+    }
+
+    /**
+     * Get logo image.
+     *
+     * @return string|null
+     */
+    public function getImage(): ?string {
+        return $this->getData(self::IMAGE);
+    }
+
+    /**
+     * Set logo image.
+     *
+     * @param $image
+     * @return BrandInterface
+     */
+    public function setImage($image): BrandInterface{
+        return $this->setData(self::IMAGE, $image);
+    }
+
+    /**
+     * Get alt text of logo image.
+     *
+     * @return string|null
+     */
+    public function getImageAlt(): ?string {
+        return $this->getData(self::IMAGE_ALT);
+    }
+
+    /**
+     * Set alt text of logo image.
+     *
+     * @param string|null $imageAlt
+     * @return BrandInterface
+     */
+    public function setImageAlt($imageAlt): BrandInterface{
+        return $this->setData(self::IMAGE_ALT, $imageAlt);
+    }
+
+    /**
+     * Get store ID.
+     *
+     * @return array|null
+     */
+    public function getStoreId(): ?array {
+        return $this->getData(self::STORE_ID);
+    }
+
+    /**
+     * Set store ID.
+     *
+     * @param array|null $storeIds
+     * @return BrandInterface
+     */
+    public function setStoreIds($storeIds): BrandInterface {
+        return $this->setData(self::STORE_ID, $storeIds);
+    }
+
+    /**
+     * Unset store ID.
+     *
+     * @return BrandInterface
+     */
+    public function unsetStoreIds(): BrandInterface {
+        return $this->unsetData('store_id');
+    }
+
+    /**
+     * Get updating time.
+     *
+     * @return string|null
+     */
+    public function getUpdatedAt(): ?string {
+        return $this->getData(self::UPDATE_TIME);
+    }
+
+    /**
+     * Set updating time.
+     *
+     * @param string $value
+     * @return BrandInterface
+     */
+    public function setUpdatedAt($value): BrandInterface{
+        return $this->setData(self::UPDATE_TIME, $value);
     }
 
 }

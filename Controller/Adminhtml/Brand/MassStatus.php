@@ -1,24 +1,21 @@
 <?php
-
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
-
 namespace Acx\BrandSlider\Controller\Adminhtml\Brand;
 
+use Acx\BrandSlider\Controller\Adminhtml\Brand;
+
 /**
- * MassStatus action
- * @category Acx
- * @package  Acx_BrandSlider
- * @module   BrandSlider
- * @author   dev@agilecodex.com
+ * Action class for mass status.
+ *
+ * @author Agile Codex
  */
-class MassStatus extends \Acx\BrandSlider\Controller\Adminhtml\Brand
+class MassStatus extends Brand
 {
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @inheritDoc
      */
     public function execute()
     {
@@ -31,7 +28,7 @@ class MassStatus extends \Acx\BrandSlider\Controller\Adminhtml\Brand
         } else {
             $brandCollection = $this->_brandCollectionFactory->create()
                 ->setStoreViewId($storeViewId)
-                ->addFieldToFilter('entity_id', ['in' => $brandIds]);
+                ->addFieldToFilter('brand_id', ['in' => $brandIds]);
             try {
                 foreach ($brandCollection as $brand) {
                     $brand->setStoreViewId($storeViewId)
@@ -50,4 +47,5 @@ class MassStatus extends \Acx\BrandSlider\Controller\Adminhtml\Brand
 
         return $resultRedirect->setPath('*/*/', ['store' => $this->getRequest()->getParam('store')]);
     }
+
 }

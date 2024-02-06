@@ -1,118 +1,76 @@
 <?php
 /**
- * This source file is subject to the agilecodex.com license that is
- * available through the world-wide-web at this URL:
- * https://www.agilecodex.com/license-agreement
+ *  Copyright © Agile Codex Ltd. All rights reserved.
+ *  License: https://www.agilecodex.com/license-agreement
  */
-?>
-<?php
-/** @var \Acx\BrandSlider\Block\BrandSlider $block */
-$htmlId = $block->getFlexSliderHtmlId();
+/**
+ * @var \Acx\BrandSlider\Block\Widget\BrandSlider $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+$htmlId = $block->getBrandSliderHtmlId();
 $brandCollection = $block->getBrandCollection();
-
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('Acx_BrandSlider::css/flexslider.css') ?>">
-
-<script type="text/javascript">
-
-    (function () {
-        // store the slider in a local variable
-        require(['jquery', 'acx/brandslider'], function ($)
-        {
-            var $window = $(window), flexslider = {vars: {}};
-            
-            // tiny helper function to add breakpoints
-            function getGridSize(itemWidth, itemMargin) {
-                return Math.round (jQuery('.acx-brandslider').width()/(itemWidth + itemMargin));
-            }
-
-
-            $(document).ready(function() {
-                var itemWidth = 210, itemMargin = <?= $block->getBrandMargin(); ?>;
-                var itemCount = getGridSize(itemWidth, itemMargin);
-                itemWidth = Math.round (jQuery('.acx-brandslider').width()/itemCount);
-                
-                $(".flex-caption").css({'width' : 'calc(' + itemWidth + 'px - ' + itemMargin + 'px)'});
-                
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    animationLoop: true,
-                    pauseOnHover: true,
-                    touch: true,
-                    itemWidth: itemWidth,
-                    slideshow: false,
-                    //thumbCaptions: true,
-                    itemMargin: itemMargin, /*< ?= //$block->getBrandMargin(); ?>*/
-                    minItems: itemCount, // use function to pull in initial value
-                    maxItems: itemCount, // use function to pull in initial value
-                    <?php
-                    if (!$block->getAutoplay()) {
-                        echo "slideshow: false, animationLoop: false,";
-                    } else {
-                        echo 'animation: "slide", slideshow: true, animationLoop: true, slideshowSpeed: ' . $block->getBrandsliderSpeed() . ',';
-                    }
-
-                    if (!$block->getDot()) {
-                        echo "controlNav: false,";
-                    }
-
-                    if (!$block->getNavButton())
-                        echo "directionNav: false,";
-
-                    ?>
-                    
-                });
-                //$(".flexslider ul li").addClass("acx-flex");
-                
-            });
-
-            // check grid size on resize event
-            $window.resize(function () {
-                var itemWidth = 210, itemMargin = <?= $block->getBrandMargin(); ?>;
-                var itemCount = getGridSize(itemWidth, itemMargin);
-                
-                flexslider.vars.minItems = itemCount;
-                flexslider.vars.maxItems = itemCount;                
-            });
-        });
-    }());
-
-</script>
-
-<div class="acx-brandslider-standard">
-    <?php
-    if ($block->getData("show_title")) {
-
-        ?>
-        <div class="acx-content-heading">
-            <h2 class="title"><?php echo $block->getTitle(); ?></h2>
-        </div>
-        <?php
-    }
-
-    ?>
-    <div class="acx-brandslider-flex-brandslider">
-        <div id="<?php echo $htmlId ?>" class="flexslider carousel flexslider-content-image <?php echo $htmlId ?>" style="margin:auto">
-            <ul class="slides">
-                <?php
-                foreach ($brandCollection as $brand) {
-
-                    ?>
-                    <li data-thumb="<?php echo $block->getBrandImageUrl($brand) ?>">
-                        <img alt="<?php echo $brand->getImageAlt() ?>" 
-                             src="<?php echo $block->getBrandImageUrl($brand) ?>"/>
-                            <?php if ($brand->getName() && $block->getShowCaption()) { ?>
-                            <div class="flex-caption">
-                            <?php echo $brand->getName(); ?>
-                            </div>
-    <?php } ?>
-                    </li>
-
-                    <?php
-                }
-
-                ?>
-            </ul>
-        </div>
-    </div>
+<link rel="stylesheet" type="text/css"
+      href="<?= $escaper->escapeUrl($block->getViewFileUrl('Acx_BrandSlider::css/slick.css')) ?>">
+<div class="slick-list">
+    <?php if ($block->getData("show_title")): ?>
+        <h2><?= $escaper->escapeHtml($block->getTitle()) ?></h2>
+    <?php endif; ?>
+    <ul class="brand-list">
+        <?php foreach ($brandCollection as $brand) : ?>
+            <li data-thumb="<?= $escaper->escapeUrl($block->getBrandImageUrl($brand)) ?>">
+                <img alt="<?= $escaper->escapeHtmlAttr($brand->getImageAlt()) ?>"
+                     src="<?= $escaper->escapeUrl($block->getBrandImageUrl($brand)) ?>"/>
+                <?php if ($brand->getName() && $block->getShowCaption()): ?>
+                    <span><?= $escaper->escapeHtml($brand->getName()) ?></span>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </div>
+
+<?php $scriptString = <<<script
+    require([
+        'jquery',
+        'slick',
+        'domReady!'
+    ], function ($) {
+        $('.brand-list').slick({
+            dots: {$escaper->escapeJs($block->getDot())},
+            infinite: {$escaper->escapeJs($block->getInfinite())},
+            speed: {$escaper->escapeJs($block->getBrandsliderSpeed())},
+            slidesToShow: {$escaper->escapeJs($block->getSlidesToShow())},
+            slidesToScroll: {$escaper->escapeJs($block->getSlidesToScroll())},
+            autoplay: {$escaper->escapeJs($block->getAutoplay())},
+            autoplaySpeed: {$escaper->escapeJs($block->getAutoplay())},
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: {$escaper->escapeJs($block->getSlidesToShowOnPad())},
+                        slidesToScroll: {$escaper->escapeJs($block->getSlidesToScroll())},
+                        infinite: {$block->getInfinite()},
+                        dots: {$block->getDot()},
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                }
+            ]
+        });
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>

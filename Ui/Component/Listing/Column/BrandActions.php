@@ -9,15 +9,13 @@ use Magento\Framework\UrlInterface;
 class BrandActions extends Column
 {
     /** Url path */
-    const URL_PATH_EDIT = 'brandslider/brand/edit';
-    const URL_PATH_DELETE = 'brandslider/brand/delete';
+    public const URL_PATH_EDIT = 'brandslider/brand/edit';
+    public const URL_PATH_DELETE = 'brandslider/brand/delete';
 
     /** @var UrlInterface */
     protected $urlBuilder;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $editUrl;
 
     /**
@@ -52,13 +50,13 @@ class BrandActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 $name = $this->getData('name');
-                if (isset($item['entity_id'])) {
+                if (isset($item['brand_id'])) {
                     $item[$name]['edit'] = [
-                        'href' => $this->urlBuilder->getUrl($this->editUrl, ['entity_id' => $item['entity_id']]),
+                        'href' => $this->urlBuilder->getUrl($this->editUrl, ['brand_id' => $item['brand_id']]),
                         'label' => __('Edit')
                     ];
                     $item[$name]['delete'] = [
-                        'href' => $this->urlBuilder->getUrl(self::URL_PATH_DELETE, ['entity_id' => $item['entity_id']]),
+                        'href' => $this->urlBuilder->getUrl(self::URL_PATH_DELETE, ['brand_id' => $item['brand_id']]),
                         'label' => __('Delete'),
                         'confirm' => [
                             'title' => __('Delete '.$item['name'].' logo'),

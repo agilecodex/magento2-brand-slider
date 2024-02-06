@@ -1,20 +1,30 @@
 {
     "acx_brandslider_brand": {
         "column": {
-            "entity_id": true,
+            "brand_id": true,
             "name": true,
             "sort_order": true,
             "status": true,
             "image": true,
             "image_alt": true,
-            "store_id": true
-        },
-        "index": {
-            "ACX_BRANDSLIDER_BRAND_ENTITY_ID": true,
-            "ACX_BRANDSLIDER_BRAND_STATUS": true
+            "update_time": true
         },
         "constraint": {
             "PRIMARY": true
+        }
+    },
+    "acx_brandslider_brand_store": {
+        "column": {
+            "brand_id": true,
+            "store_id": true
+        },
+        "index": {
+            "ACX_BRANDSLIDER_BRAND_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ACX_BS_BRAND_STORE_BRAND_ID_BRAND_BRAND_ID": true,
+            "ACX_BS_BRAND_STORE_STORE_ID_STORE_STORE_ID": true
         }
     }
 }

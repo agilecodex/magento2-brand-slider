@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Agile Codex Ltd. All rights reserved.
+ * License:  https://www.agilecodex.com/license-agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="acx_brand_slider_brand_save_after">
+        <observer name="invalidate_cache_on_brand_slider_change" instance="Acx\BrandSlider\Observer\InvalidateCacheOnBrandChange" />
+    </event>
+</config>
