@@ -23,54 +23,34 @@ use Psr\Log\LoggerInterface;
  */
 class ImageUploader
 {
-    /**
-     * @var Database
-     */
+    /** @var Database */
     protected $coreFileStorageDatabase;
 
-    /**
-     * @var WriteInterface
-     */
+    /** @var WriteInterface */
     protected $mediaDirectory;
 
-    /**
-     * @var UploaderFactory
-     */
+    /** @var UploaderFactory */
     private $uploaderFactory;
 
-    /**
-     * @var StoreManagerInterface
-     */
+    /** @var StoreManagerInterface */
     protected $storeManager;
 
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     protected $logger;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $baseTmpPath;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $basePath;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $allowedExtensions;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $allowedMimeTypes;
 
-    /**
-     * @var Name
-     */
+    /** @var Name */
     private $fileNameLookup;
 
     /**

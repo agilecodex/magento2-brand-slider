@@ -9,9 +9,11 @@
     </argument>
     <settings>
         <buttons>
-            <button name="save" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\SaveButton"/>
-            <button name="delete" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\DeleteButton"/>
             <button name="back" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\BackButton"/>
+            <button name="delete" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\DeleteButton"/>
+            <button name="reset" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\ResetButton"/>
+            <button name="save" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\SaveButton"/>
+            <button name="save_and_continue" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\SaveAndContinueButton"/>
         </buttons>
         <namespace>brandslider_brand_form</namespace>
         <dataScope>data</dataScope>
@@ -26,7 +28,7 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="brandslider/brand/save"/>
+            <submitUrl path="*/*/save"/>
         </settings>
         <dataProvider class="Acx\BrandSlider\Model\Brand\DataProvider" name="brand_form_data_source">
             <settings>
@@ -37,7 +39,9 @@
     </dataSource>
     <fieldset name="general">
         <settings>
-            <label/>
+            <label translate="true">Brand Slider Information</label>
+            <collapsible>true</collapsible>
+            <opened>true</opened>
         </settings>
         <field name="brand_id" formElement="input">
             <argument name="data" xsi:type="array">

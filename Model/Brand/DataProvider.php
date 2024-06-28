@@ -112,6 +112,9 @@ class DataProvider extends ModifierPoolDataProvider
      */
     private function convertValues($dataSet): array
     {
+        if (!is_array($dataSet)) {
+            $dataSet = [];
+        }
         foreach ($dataSet as $i => $data) {
             foreach ($data as $key => $value) {
                 if ($key == 'image') {
