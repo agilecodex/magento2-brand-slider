@@ -100,11 +100,11 @@ class BrandRepository implements BrandRepositoryInterface
     /**
      * Load Brand data by given Brand Identity
      *
-     * @param string $brandId
+     * @param int $brandId
      * @return BrandInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getById(string $brandId): BrandInterface
+    public function getById(int $brandId): BrandInterface
     {
         $brand = $this->brandFactory->create();
         $this->resource->load($brand, $brandId);

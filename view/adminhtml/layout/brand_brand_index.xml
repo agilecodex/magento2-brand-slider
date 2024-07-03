@@ -6,7 +6,7 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="brandslider_brand_listing"/>
+            <uiComponent name="brand_brand_listing"/>
         </referenceContainer>
     </body>
 </page>

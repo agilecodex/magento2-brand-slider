@@ -7,8 +7,9 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="content" htmlClass="admin__old" htmlTag="div">
-            <uiComponent name="brandslider_brand_form"/>
+        <referenceContainer name="admin.scope.col.wrap" htmlClass="admin__old" />
+        <referenceContainer name="content">
+            <uiComponent name="brand_brand_form"/>
         </referenceContainer>
     </body>
 </page>

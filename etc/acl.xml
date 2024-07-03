@@ -9,13 +9,13 @@
 	<acl>
 	    <resources>
 	        <resource id="Magento_Backend::admin">
-	        	<resource id="Acx_BrandSlider::brandslider" title="Acx BrandSlider" sortOrder="10">
-	        	    <resource id="Acx_BrandSlider::brandslider_brands" title="Manage Brands" sortOrder="10" />
+	        	<resource id="Acx_BrandSlider::brand" title="Brand Management by AgileCodex" sortOrder="10">
+	        	    <resource id="Acx_BrandSlider::brand_brands" title="Brand List" sortOrder="10" />
 	        	</resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Acx_BrandSlider::config" title="Acx Brand Slider" sortOrder="113" />
+                            <resource id="Acx_BrandSlider::config" title="Brand Slider" sortOrder="113" />
                         </resource>
                     </resource>
                 </resource>

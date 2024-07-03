@@ -13,6 +13,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
@@ -26,7 +27,7 @@ class BrandSlider extends Template implements WidgetBlockInterface, IdentityInte
 {
     /** template for brand slider */
     public const TEMPLATE = 'Acx_BrandSlider::brandslider/brandslider.phtml';
-    public const XML_CONFIG_BRANDSLIDER = 'brandslider/general/enable_frontend';
+    public const XML_CONFIG_BRANDSLIDER = 'brand/general/enable_frontend';
 
     /** Prefix for cache key of Brand Slider */
     public const CACHE_KEY_PREFIX = 'BRAND_SLIDER_';
@@ -41,7 +42,7 @@ class BrandSlider extends Template implements WidgetBlockInterface, IdentityInte
     protected $_assetRepo;
 
     /** @var BrandModel */
-    private $brand;
+    protected $brand;
 
     /** @var BrandFactory */
     protected $brandFactory;
@@ -107,11 +108,45 @@ class BrandSlider extends Template implements WidgetBlockInterface, IdentityInte
      */
     public function getBrandImageUrl(\Acx\BrandSlider\Model\Brand $brand)
     {
-        $srcImage = $this->getBaseUrlMedia($brand->getImage());
-        if (!preg_match('~\.(png|gif|jpe?g|bmp)~i', $srcImage)) {
+        $srcImage = $this->getBaseUrlMedia($brand->getLogo());
+        if (!preg_match('~\.(png|gif|jpe?g|bmp|webp)~i', $srcImage)) {
             $srcImage = $this->_assetRepo->getUrl("Acx_BrandSlider::images/brand-logo-blank.png");
         }
         return $srcImage;
+    }
+
+    /**
+     * Start brand url.
+     *
+     * @param \Acx\BrandSlider\Model\Brand $brand
+     *
+     * @return string
+     */
+    public function startBrandPageUrl(\Acx\BrandSlider\Model\Brand $brand)
+    {
+        return '';
+    }
+
+    /**
+     * End brand url.
+     *
+     * @return string
+     */
+    public function endBrandPageUrl()
+    {
+        return '';
+    }
+
+    /**
+     * Get brand image url.
+     *
+     * @param \Acx\BrandSlider\Model\Brand $brand
+     *
+     * @return string
+     */
+    public function getBrandPageUrl(\Acx\BrandSlider\Model\Brand $brand)
+    {
+        return '';
     }
 
     /**
@@ -134,8 +169,9 @@ class BrandSlider extends Template implements WidgetBlockInterface, IdentityInte
      */
     public function getBaseUrlMedia($path = '', $secure = false)
     {
-        return $this->_storeManager->getStore()
-                ->getBaseUrl() . $path;
+        $store = $this->_storeManager->getStore();
+        return $store->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
+            . 'acx/brand/logo/' . $path;
     }
 
     /**
@@ -246,8 +282,7 @@ class BrandSlider extends Template implements WidgetBlockInterface, IdentityInte
      */
     public function getAutoplaySpeed()
     {
-        return ((bool)$this->getData('autoplaySpeed') === true)
-            ? "true" : "false";
+        return (int)$this->getData('autoplaySpeed') ;
     }
 
     /**

@@ -9,7 +9,7 @@
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">brandslider_brand_listing.brandslider_brand_listing_data_source</item>
+            <item name="provider" xsi:type="string">brand_brand_listing.brand_brand_listing_data_source</item>
         </item>
     </argument>
     <settings>
@@ -20,20 +20,20 @@
                 <label translate="true">Add New Brand</label>
             </button>
         </buttons>
-        <spinner>brandslider_brand_columns</spinner>
+        <spinner>brand_brand_columns</spinner>
         <deps>
-            <dep>brandslider_brand_listing.brandslider_brand_listing_data_source</dep>
+            <dep>brand_brand_listing.brand_brand_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="brandslider_brand_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="brand_brand_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">brand_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Acx_BrandSlider::brandslider</aclResource>
-        <dataProvider class="Acx\BrandSlider\Ui\Component\DataProvider" name="brandslider_brand_listing_data_source">
+        <aclResource>Acx_BrandSlider::brand</aclResource>
+        <dataProvider class="Acx\BrandSlider\Ui\Component\DataProvider" name="brand_brand_listing_data_source">
             <settings>
                 <requestFieldName>brand_id</requestFieldName>
                 <primaryFieldName>brand_id</primaryFieldName>
@@ -49,7 +49,7 @@
         <filterSearch name="fulltext"/>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="brandslider_brand_columns">
+    <columns name="brand_brand_columns">
         <column name="brand_id">
             <settings>
                 <filter>textRange</filter>
@@ -70,14 +70,14 @@
                 <label translate="true">Brand Name</label>
             </settings>
         </column>
-        <column name="image" class="Acx\BrandSlider\Ui\Component\Listing\Column\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail">
+        <column name="logo" class="Acx\BrandSlider\Ui\Component\Listing\Column\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Brand Logo</label>
                 <sortable>false</sortable>
             </settings>
         </column>
-        <column name="image_alt">
+        <column name="logo_alt">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Alt Text</label>

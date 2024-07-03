@@ -10,7 +10,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="brandslider_brand_listing_data_source" xsi:type="string">
+                <item name="brand_brand_listing_data_source" xsi:type="string">
                     Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection
                 </item>
             </argument>
@@ -18,8 +18,8 @@
     </type>
     <type name="Acx\BrandSlider\Model\ResourceModel\Brand\Grid\Collection">
         <arguments>
-            <argument name="mainTable" xsi:type="string">acx_brandslider_brand</argument>
-            <argument name="eventPrefix" xsi:type="string">brandslider_brand_collection</argument>
+            <argument name="mainTable" xsi:type="string">acx_brand_slider</argument>
+            <argument name="eventPrefix" xsi:type="string">brand_brand_collection</argument>
             <argument name="eventObject" xsi:type="string">brand_collection</argument>
             <argument name="resourceModel" xsi:type="string">Acx\BrandSlider\Model\ResourceModel\Brand</argument>
         </arguments>
@@ -29,13 +29,13 @@
         <arguments>
             <argument name="metadata" xsi:type="array">
                 <item name="Acx\BrandSlider\Api\Data\BrandInterface" xsi:type="array">
-                    <item name="entityTableName" xsi:type="string">acx_brandslider_brand</item>
+                    <item name="entityTableName" xsi:type="string">acx_brand_slider</item>
                     <item name="identifierField" xsi:type="string">brand_id</item>
                 </item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="Acx\BrandSlider\BrandLogoUpload" type="Acx\BrandSlider\Model\ImageUploader">
+    <virtualType name="Acx\BrandSlider\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
         <arguments>
             <argument name="baseTmpPath" xsi:type="string">acx/tmp/brand</argument>
             <argument name="basePath" xsi:type="string">acx/brand</argument>
@@ -44,23 +44,35 @@
                 <item name="jpeg" xsi:type="string">jpeg</item>
                 <item name="gif" xsi:type="string">gif</item>
                 <item name="png" xsi:type="string">png</item>
+                <item name="webp" xsi:type="string">webp</item>
             </argument>
             <argument name="allowedMimeTypes" xsi:type="array">
                 <item name="jpg" xsi:type="string">image/jpg</item>
                 <item name="jpeg" xsi:type="string">image/jpeg</item>
                 <item name="gif" xsi:type="string">image/gif</item>
                 <item name="png" xsi:type="string">image/png</item>
+                <item name="webp" xsi:type="string">image/webp</item>
             </argument>
         </arguments>
     </virtualType>
-    <type name="Acx\BrandSlider\Controller\Adminhtml\Brand\Image\Upload">
+    <type name="Acx\BrandSlider\Model\Brand\DataProvider">
         <arguments>
-            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\BrandLogoUpload</argument>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\ImageUploader</argument>
         </arguments>
     </type>
-    <type name="Acx\BrandSlider\Model\Brand\Image">
+    <type name="Acx\BrandSlider\Ui\Component\DataProvider">
         <arguments>
-            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\BrandLogoUpload</argument>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Acx\BrandSlider\Model\Brand\Brand">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Acx\BrandSlider\Controller\Adminhtml\Brand\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Acx\BrandSlider\ImageUploader</argument>
         </arguments>
     </type>
 </config>

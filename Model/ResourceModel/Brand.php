@@ -59,7 +59,7 @@ class Brand extends AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('acx_brandslider_brand', 'brand_id');
+        $this->_init('acx_brand_slider', 'brand_id');
     }
 
     /**
@@ -151,7 +151,7 @@ class Brand extends AbstractDb
             $stores = [(int)$object->getStoreId(), Store::DEFAULT_STORE_ID];
 
             $select->join(
-                ['cbs' => $this->getTable('acx_brandslider_brand_store')],
+                ['cbs' => $this->getTable('acx_brand_store')],
                 $this->getMainTable() . '.' . $linkField . ' = cbs.' . $linkField,
                 ['store_id']
             )
@@ -183,7 +183,7 @@ class Brand extends AbstractDb
         $select = $this->getConnection()->select()
             ->from(['cb' => $this->getMainTable()])
             ->join(
-                ['cbs' => $this->getTable('acx_brandslider_brand_store')],
+                ['cbs' => $this->getTable('acx_brand_store')],
                 'cb.' . $linkField . ' = cbs.' . $linkField,
                 []
             )
@@ -214,7 +214,7 @@ class Brand extends AbstractDb
         $linkField = $entityMetadata->getLinkField();
 
         $select = $connection->select()
-            ->from(['cbs' => $this->getTable('acx_brandslider_brand_store')], 'store_id')
+            ->from(['cbs' => $this->getTable('acx_brand_store')], 'store_id')
             ->join(
                 ['cb' => $this->getMainTable()],
                 'cbs.' . $linkField . ' = cb.' . $linkField,

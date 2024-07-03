@@ -2,7 +2,7 @@
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">brandslider_brand_form.brand_form_data_source</item>
+            <item name="provider" xsi:type="string">brand_brand_form.brand_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">General Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
@@ -15,10 +15,10 @@
             <button name="save" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\SaveButton"/>
             <button name="save_and_continue" class="Acx\BrandSlider\Block\Adminhtml\Brand\Edit\SaveAndContinueButton"/>
         </buttons>
-        <namespace>brandslider_brand_form</namespace>
+        <namespace>brand_brand_form</namespace>
         <dataScope>data</dataScope>
         <deps>
-            <dep>brandslider_brand_form.brand_form_data_source</dep>
+            <dep>brand_brand_form.brand_form_data_source</dep>
         </deps>
     </settings>
     <dataSource name="brand_form_data_source">
@@ -94,7 +94,7 @@
                 <dataScope>name</dataScope>
             </settings>
         </field>
-        <field name="image" sortOrder="40" formElement="imageUploader">
+        <field name="logo" sortOrder="40" formElement="imageUploader">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">brand</item>
@@ -106,25 +106,25 @@
                 <label translate="true">Brand Logo</label>
                 <visible>true</visible>
                 <required>false</required>
-                <dataScope>image</dataScope>
+                <dataScope>logo</dataScope>
             </settings>
             <formElements>
                 <imageUploader>
                     <settings>
                         <required>false</required>
                         <uploaderConfig>
-                            <param xsi:type="url" name="url" path="brandslider/brand_image/upload"/>
+                            <param xsi:type="url" name="url" path="brand/brand_image/upload"/>
                         </uploaderConfig>
                         <previewTmpl>Acx_BrandSlider/image-preview</previewTmpl>
                         <openDialogTitle>Media Gallery</openDialogTitle>
                         <initialMediaGalleryOpenSubpath>acx/brand</initialMediaGalleryOpenSubpath>
-                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <allowedExtensions>jpg jpeg gif png webp</allowedExtensions>
                         <maxFileSize>4194304</maxFileSize>
                     </settings>
                 </imageUploader>
             </formElements>
         </field>
-        <field name="image_alt" sortOrder="41" formElement="input">
+        <field name="logo_alt" sortOrder="41" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">brand</item>
@@ -136,7 +136,7 @@
                 </validation>
                 <dataType>text</dataType>
                 <label translate="true">Brand Logo Alt Text</label>
-                <dataScope>image_alt</dataScope>
+                <dataScope>logo_alt</dataScope>
             </settings>
         </field>
         <field name="sort_order" formElement="input">

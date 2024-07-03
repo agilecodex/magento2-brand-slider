@@ -69,6 +69,6 @@ class Collection extends AbstractCollection
     protected function _renderFiltersBefore()
     {
         $entityMetadata = $this->metadataPool->getMetadata(BrandInterface::class);
-        $this->joinStoreRelationTable('acx_brandslider_brand_store', $entityMetadata->getLinkField());
+        $this->joinStoreRelationTable('acx_brand_store', $entityMetadata->getLinkField());
     }
 }

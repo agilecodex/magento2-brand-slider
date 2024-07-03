@@ -20,7 +20,7 @@ use Acx\BrandSlider\Model\ResourceModel\Brand\CollectionFactory;
  */
 class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Acx_BrandSlider::brandslider_brands';
+    public const ADMIN_RESOURCE = 'Acx_BrandSlider::brand_brands';
 
     /** @var Filter */
     protected $filter;

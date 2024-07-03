@@ -7,5 +7,5 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <update handle="brandslider_brand_edit"/>
+    <update handle="brand_brand_edit.xml"/>
 </page>

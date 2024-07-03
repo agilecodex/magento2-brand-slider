@@ -7,10 +7,10 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Acx_BrandSlider::brandslider" title="Brand Slider" module="Acx_BrandSlider"
-             sortOrder="21" resource="Acx_BrandSlider::brandslider" parent="Acx_Backend::AgileCodex"/>
-        <add id="Acx_BrandSlider::brandslider_brands" title="Manage Brands" module="Acx_BrandSlider"
-             sortOrder="22" parent="Acx_BrandSlider::brandslider" action="brandslider/brand"
-             resource="Acx_BrandSlider::brandslider_brands"/>
+        <add id="Acx_BrandSlider::brand" title="Brand Management" module="Acx_BrandSlider"
+             sortOrder="21" resource="Acx_BrandSlider::brand" parent="Acx_Backend::AgileCodex"/>
+        <add id="Acx_BrandSlider::brand_brands" title="Brand List" module="Acx_BrandSlider"
+             sortOrder="22" parent="Acx_BrandSlider::brand" action="brand/brand"
+             resource="Acx_BrandSlider::brand_brands"/>
     </menu>
 </config>

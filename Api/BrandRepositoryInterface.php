@@ -35,11 +35,11 @@ interface BrandRepositoryInterface
     /**
      * Load Brand data by given Brand Identity
      *
-     * @param string $brandId
+     * @param int $brandId
      * @return BrandInterface
      * @throws NoSuchEntityException
      */
-    public function getById(string $brandId): BrandInterface;
+    public function getById(int $brandId): BrandInterface;
 
     /**
      * Load Brand data collection by given search criteria

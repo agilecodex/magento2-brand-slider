@@ -25,7 +25,7 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
                     'buttonAdapter' => [
                         'actions' => [
                             [
-                                'targetName' => 'brandslider_brand_form.brandslider_brand_form',
+                                'targetName' => 'brand_brand_form.brand_brand_form',
                                 'actionName' => 'save',
                                 'params' => [
                                     true,
@@ -60,7 +60,7 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
                         'buttonAdapter' => [
                             'actions' => [
                                 [
-                                    'targetName' => 'brandslider_brand_form.brandslider_brand_form',
+                                    'targetName' => 'brand_brand_form.brand_brand_form',
                                     'actionName' => 'save',
                                     'params' => [
                                         true,
@@ -82,7 +82,7 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
                         'buttonAdapter' => [
                             'actions' => [
                                 [
-                                    'targetName' => 'brandslider_brand_form.brandslider_brand_form',
+                                    'targetName' => 'brand_brand_form.brand_brand_form',
                                     'actionName' => 'save',
                                     'params' => [
                                         true,

@@ -37,10 +37,10 @@ class Edit extends \Acx\BrandSlider\Controller\Adminhtml\Brand
             $model->setData($data);
         } elseif (!$id) {
             $brand_name = $this->_getSession()->getBrandName();
-            $image_alt = $this->_getSession()->getImageAlt();
+            $logo_alt = $this->_getSession()->getImageAlt();
 
             if (isset($brand_name) && strlen($brand_name)) {
-                $data = [ 'name' => $brand_name, 'image_alt' => $image_alt ];
+                $data = [ 'name' => $brand_name, 'logo_alt' => $logo_alt ];
                 $model->setData($data);
             }
 

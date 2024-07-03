@@ -22,7 +22,7 @@ abstract class Brand extends \Acx\BrandSlider\Controller\Adminhtml\AbstractActio
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Acx_BrandSlider::brandslider_brands');
+        return $this->_authorization->isAllowed('Acx_BrandSlider::brand_brands');
     }
 
     /**
